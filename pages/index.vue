@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>is the font open sans</div>
 </template>
 
 <script>
