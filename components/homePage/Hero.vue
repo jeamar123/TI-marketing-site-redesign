@@ -85,6 +85,7 @@ export default {
     font-size: 16px;
     line-height: 24px;
     z-index: 3;
+    color: $black;
   }
 
   @media (min-width: $media-xs) {
