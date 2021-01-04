@@ -1,7 +1,16 @@
 <template>
-  <div>is the font open sans</div>
+  <div>
+    <Hero />
+  </div>
 </template>
 
 <script>
-export default {}
+import Hero from '~/components/homePage/Hero';
+
+export default {
+  name: 'HomePage',
+  components: {
+    Hero,
+  },
+}
 </script>
