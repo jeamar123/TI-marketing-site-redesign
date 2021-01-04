@@ -9,16 +9,56 @@
       {
           "id": "spo2020",
           "name": "Exploit Spokane Virtual 2020",
+          "shortName": "Spokane Con",
           "time": "10 AM - 4 PM",
-          "date": "AUG 19, 2020",
-          "city": "Spokane"
+          "date": "AUG 19 2020",
+          "city": "Spokane",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
       },
       {
           "id": "pdx2020",
           "name": "Exploit Portland Virtual 2020",
+          "shortName": "Portland Con",
           "time": "10 AM - 4 PM",
-          "date": "SEP 23, 2020",
-          "city": "Portland"
-      }
+          "date": "SEP 23 2020",
+          "city": "Portland",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
+      },
+      {
+        "id": "spo2020",
+        "name": "Exploit Spokane Virtual 2020",
+        "shortName": "Spokane Con",
+        "time": "10 AM - 4 PM",
+        "date": "AUG 19 2020",
+        "city": "Spokane",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
+    },
+    {
+        "id": "pdx2020",
+        "name": "Exploit Portland Virtual 2020",
+        "shortName": "Portland Con",
+        "time": "10 AM - 4 PM",
+        "date": "SEP 23 2020",
+        "city": "Portland",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
+    },
+    {
+        "id": "spo2020",
+        "name": "Exploit Spokane Virtual 2020",
+        "shortName": "Spokane Con",
+        "time": "10 AM - 4 PM",
+        "date": "AUG 19 2020",
+        "city": "Spokane",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
+    },
+    {
+        "id": "pdx2020",
+        "name": "Exploit Portland Virtual 2020",
+        "shortName": "Portland Con",
+        "time": "10 AM - 4 PM",
+        "date": "SEP 23 2020",
+        "city": "Portland",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua."
+    }
   ]
 }

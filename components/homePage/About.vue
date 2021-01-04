@@ -12,7 +12,7 @@ import Heading from '~/components/common/Heading';
 import TextSection from '~/components/common/TextSection';
 
 export default {
-  name: 'HomePAgeAbout',
+  name: 'HomePageAbout',
   props: {},
   components: {
     Heading,
