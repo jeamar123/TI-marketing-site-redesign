@@ -1,0 +1,46 @@
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  line-height: 2;
+  font-weight: normal;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body,
+main,
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  font: inherit;
+  color: inherit;
+}

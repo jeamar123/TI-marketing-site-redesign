@@ -1,3 +1,5 @@
+const development = process.env.NODE_ENV !== 'production';
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -15,7 +17,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [],
+  css: ['~/assets/scss/index.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [],
@@ -26,20 +28,31 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
-    '@nuxtjs/stylelint-module',
+    // '@nuxtjs/stylelint-module',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/svg-sprite',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: development
+      ? 'https://test.exploitcon.com'
+      : 'https://exploitcon.com',
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    postcss: {
+      plugins: {
+        'postcss-normalize': {},
+      },
+    },
+  },
 }

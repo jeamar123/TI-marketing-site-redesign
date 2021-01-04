@@ -1,0 +1,24 @@
+{
+  "home": {
+      "about": {
+          "title": "What is ExploitCon?",
+          "description": "ExploitCon is a national conference that focuses on providing attendees with technical information from industry experts in order to educate the IT community on advancements in Cyber Security and Information Technology. Enjoy presentations from local speakers on a wide range of IT topics, connect with peers and other industry experts, or get hands on experience at any of our villages. At Exploit we work hard to provide our attendees with the latest and greatest in Cyber Security and our main goal is to make sure you walk away more educated."
+      }
+  },
+  "events": [
+      {
+          "id": "spo2020",
+          "name": "Exploit Spokane Virtual 2020",
+          "time": "10 AM - 4 PM",
+          "date": "AUG 19, 2020",
+          "city": "Spokane"
+      },
+      {
+          "id": "pdx2020",
+          "name": "Exploit Portland Virtual 2020",
+          "time": "10 AM - 4 PM",
+          "date": "SEP 23, 2020",
+          "city": "Portland"
+      }
+  ]
+}
