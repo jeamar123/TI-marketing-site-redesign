@@ -20,6 +20,7 @@
 
 <script>
 import moment from 'moment';
+import { shortenText } from '~/assets/js/utils';
 import Heading from '~/components/common/Heading';
 
 export default {
@@ -39,9 +40,7 @@ export default {
       return require(`~/assets/img/bg/${this.event.city.toLowerCase()}.jpg`);
     },
     textFiltered() {
-      return this.event.description.length <= 120
-        ? this.event.description
-        : `${this.event.description.split('').splice(0, 120).join('')}...`
+      return shortenText(this.event.description, 120);
     },
   },
   methods: {},

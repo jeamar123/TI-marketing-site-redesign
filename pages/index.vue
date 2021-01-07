@@ -4,6 +4,7 @@
     <main>
       <About />
       <Events />
+      <Blog />
     </main>
   </div>
 </template>
@@ -12,6 +13,7 @@
 import Hero from '~/components/homePage/Hero';
 import About from '~/components/homePage/About';
 import Events from '~/components/homePage/Events/Events';
+import Blog from '~/components/homePage/Blog/Blog';
 
 export default {
   name: 'HomePage',
@@ -19,6 +21,7 @@ export default {
     Hero,
     About,
     Events,
+    Blog,
   },
 }
 </script>
