@@ -1,5 +1,5 @@
 <template>
-  <article class="event-card" @click="router.push(`/${event.id}`)">
+  <article class="event-card" @click="$router.push(`/${event.id}`)">
     <div class="event-card__img-wrapper">
       <div class="event-card__image"
         :style="{'background-image': `url(${bgPath})`}" />

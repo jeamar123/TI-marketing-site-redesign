@@ -1,20 +1,20 @@
 <template>
-  <div>
+  <div class="">
     
   </div>
 </template>
 
 <script>
-import fakeData from '~/static/event.json';
-
 export default {
-  name: 'EventPage',
+  name: '',
   props: {},
   components: {},
-  data: () => ({
-    fakeData,
-  }),
+  data: () => ({}),
   computed: {},
   methods: {},
 };
 </script>
+
+<style lang="scss">
+@import '~/assets/scss/variables';
+</style>
