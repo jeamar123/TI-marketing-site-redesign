@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import Heading from './Heading';
+
 export default {
   name: 'TextSection',
   props: {
@@ -22,7 +24,9 @@ export default {
       default: '',
     },
   },
-  components: {},
+  components: {
+    Heading,
+  },
   data: () => ({}),
   computed: {},
   methods: {},
