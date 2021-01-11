@@ -64,12 +64,12 @@
         Contact us
       </Heading>
       <p class="footer__contacts">
-        <span>
+        <a href="tel:9072907660">
           (907)&nbsp;290&nbsp;-&nbsp;7660
-        </span>
-        <span>
+        </a>
+        <a href="mailto:info@artic-con.com">
           info@artic-con.com
-        </span>
+        </a>
       </p>
       <p class="footer__policies">
         <a href="#" class="footer__policy">
@@ -195,6 +195,10 @@ export default {
   &__contacts {
     line-height: 26px;
     margin-bottom: 24px;
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 
   &__policies {
