@@ -32,6 +32,7 @@ export default {
 @import '~/assets/scss/variables';
 
 .button {
+  display: block;
   border: none;
   background: none;
   padding: 0;
@@ -40,6 +41,7 @@ export default {
   text-transform: uppercase;
   font-size: 24px;
   line-height: 24px;
+  padding: 16px 0;
 
   &--white {
     color: $white;

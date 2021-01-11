@@ -1,16 +1,19 @@
 <template>
   <div>
-    
+    <Hero :data="fakeData.hero" />
   </div>
 </template>
 
 <script>
 import fakeData from '~/static/event.json';
+import Hero from '~/components/eventPage/Hero';
 
 export default {
   name: 'EventPage',
   props: {},
-  components: {},
+  components: {
+    Hero,
+  },
   data: () => ({
     fakeData,
   }),
