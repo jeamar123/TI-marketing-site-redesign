@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Hero />
+    <Hero id="home" />
     <main>
-      <About />
-      <Events />
-      <Blog />
+      <About id="about" />
+      <Events id="events" />
+      <Blog id="blog" />
     </main>
   </div>
 </template>

@@ -16,5 +16,26 @@ export default {
     Nav,
     Footer,
   },
+  created() {
+    this.scrollToSection();
+  },
+  watch: {
+    hash(value) {
+      this.scrollToSection()
+    },
+  },
+  computed: {
+    hash() {
+      return this.$route.hash.split('#')[1];
+    },
+  },
+  methods: {
+    scrollToSection(hash) {
+      if (hash) {
+        const elem = document.getElementById(hash);
+        elem.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+  },
 }
 </script>

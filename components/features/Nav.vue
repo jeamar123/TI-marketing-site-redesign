@@ -66,6 +66,7 @@ export default {
       'Home',
       'About',
       'Events',
+      'Blog',
       'Contacts',
     ],
     eventNav: [

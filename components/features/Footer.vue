@@ -59,7 +59,7 @@
         Copyright ©2020 All rights reserved
       </p>
     </div>
-    <div class="footer__wrapper footer__wrapper--contacts">
+    <div class="footer__wrapper footer__wrapper--contacts" id="contacts">
       <Heading color="white" class="footer__heading">
         Contact us
       </Heading>
