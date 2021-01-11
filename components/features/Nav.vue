@@ -22,7 +22,7 @@
             <router-link
               v-for="link in menuItems"
               :key="link.hash"
-              :to="`/#${link.hash}`"
+              :to="`${$route.path}#${link.hash}`"
               class="navigation__nav-link"
             >
               {{ link.name }}
@@ -80,7 +80,7 @@ export default {
   }),
   computed: {
     menuItems() {
-      return this.$route.params.id
+      return this.$route.params.event
         ? this.getMenuItems(this.eventNav)
         : this.getMenuItems(this.homeNav);
     }
