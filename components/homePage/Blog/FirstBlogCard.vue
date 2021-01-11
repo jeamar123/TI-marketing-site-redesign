@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import Heading from '~/components/common/Heading';
+
 export default {
   name: 'FirstBlogCard',
   props: {
@@ -27,7 +29,9 @@ export default {
       default: () => ({}),
     },
   },
-  components: {},
+  components: {
+    Heading,
+  },
   data: () => ({}),
   computed: {},
   methods: {},
