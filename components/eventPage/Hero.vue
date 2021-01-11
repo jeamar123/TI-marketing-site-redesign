@@ -322,7 +322,10 @@ export default {
       }
 
       &:nth-child(2) {
-        bottom: 40%;
+        bottom: -110px;
+        transform-origin: bottom left;
+        left: -88px;
+        width: 150%;
       }
     }
   }
