@@ -5,5 +5,13 @@
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
     "location": "ArcticCon Virtual Conference Platform",
     "time": "09:00 AM - 05:00 PM,OCT 29, 2020"
+  },
+  "about": {
+    "title": "What is ArcticCon?",
+    "description": "ArcticCon is an IT conference based in Anchorage, Alaska with its start in 2017. ArcticCon’s mission is to provide technical information from industry experts to educate the IT community of Alaska about new advancements in Cyber Security and Information Technology. ArcticCon aims to make IT more accessible to the Last Frontier and bring together community members from all over the state to encourage a collaborative work environment."
+  },
+  "apply": {
+    "title": "Want to share your experience?",
+    "description": "If you’re an expert in your IT field, ArcticCon is a great platform to get your message out. Show off your research, an attack or even a solution you implemented that others should see. Well, you are in luck! Call For Papers is now open. Click below to apply!"
   }
 }
