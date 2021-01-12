@@ -1,11 +1,23 @@
 <template>
-  <section class="text-section">
-    <Heading class="text-section__heading">
+  <section
+    class="text-section"
+    :class="{
+      'text-section--reverse': isReverse,
+      'text-section--event': isEventPage,
+    }"
+  >
+    <Heading
+      :text-align="alignHeading"
+      class="text-section__heading"
+    >
       {{ heading }}
     </Heading>
-    <p class="text-section__text">
-      {{ text }}
-    </p>
+    <div class="text-section__wrapper">
+      <p class="text-section__text">
+        {{ text }}
+      </p>
+      <slot />
+    </div>
   </section>
 </template>
 
@@ -23,6 +35,18 @@ export default {
       type: String,
       default: '',
     },
+    alignHeading: {
+      type: String,
+      default: 'left',
+    },
+    isReverse: {
+      type: Boolean,
+      default: false,
+    },
+    isEventPage: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Heading,
@@ -37,6 +61,7 @@ export default {
 @import '~/assets/scss/variables';
 
 .text-section {
+  $self: &;
   padding: 38px 16px;
 
   &__heading {
@@ -64,6 +89,20 @@ export default {
     padding: 202px 24px;
     display: flex;
 
+    &--reverse {
+      #{$self}__wrapper {
+        order: 1
+      }
+
+      #{$self}__heading {
+        order: 2;
+      }
+    }
+
+    &--event {
+      padding: 100px 24px;
+    }
+
     &__heading {
       margin-bottom: 0;
     }
@@ -71,6 +110,17 @@ export default {
 
   @media (min-width: $media-md) {
     padding: 184px 24px;
+
+    &--event {
+      padding: 230px 24px;
+    }
+
+    &--reverse {
+      #{$self}__heading {
+        margin-left: 10%;
+        margin-right: 0;
+      }
+    }
 
     &__heading {
       flex-basis: 30%;
@@ -84,6 +134,10 @@ export default {
 
   @media (min-width: $media-lg) {
     padding: 238px 20%;
+
+    &--event {
+      padding: 270px 20%;
+    }
   }
 }
 </style>
