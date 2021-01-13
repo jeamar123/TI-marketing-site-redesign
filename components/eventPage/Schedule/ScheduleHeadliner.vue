@@ -1,5 +1,5 @@
 <template>
-  <article class="headliner">
+  <article class="headliner" :class="{'headliner--opened': isScheduleOpened}">
     <div class="headliner__heading-wrapper--xs">
       <Heading color="white" type="h3" class="headliner__heading">
         {{ data.speakerName }}
@@ -50,6 +50,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    isScheduleOpened: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Heading,
@@ -89,7 +93,8 @@ export default {
       background-color: $accent-red;
     }
 
-    #{$self}__main-wrapper {
+    #{$self}__main-wrapper,
+    #{$self}__track {
       background-color: $accent-yellow;
     }
   }
@@ -99,7 +104,8 @@ export default {
       background-color: $accent-yellow;
     }
 
-    #{$self}__main-wrapper {
+    #{$self}__main-wrapper,
+    #{$self}__track {
       background-color: $accent-red;
     }
   }
@@ -109,7 +115,8 @@ export default {
       background-color: $accent-red;
     }
 
-    #{$self}__main-wrapper {
+    #{$self}__main-wrapper,
+    #{$self}__track {
       background-color: $accent-blue;
     }
   }
@@ -161,6 +168,7 @@ export default {
     padding-top: 262px;
     margin-top: -250px;
     color: $black;
+    transition: color 0.3s, background-color 0.3s;
   }
 
   &__track {
@@ -168,16 +176,52 @@ export default {
     font-size: 16px;
     line-height: 22px;
     text-transform: uppercase;
-    margin-bottom: 16px;
+    margin-bottom: 16px !important;
+    transition: height 0.3s;
   }
 
   &__title {
     margin-bottom: 10px;
+    transition: color 0.3s;
   }
 
   @media (min-width: $media-xs) {
     padding-top: 28px;
     display: flex;
+    
+    &--opened {
+      #{$self}__main-wrapper {
+        background-color: transparent !important;
+        color: $white !important;
+      }
+
+      #{$self}__title {
+        color: $white !important;
+      }
+
+      #{$self}__track {
+        color: $black;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        margin: 0 -16px;
+        padding: 0 16px;
+      }
+
+      &:nth-child(odd) {
+        #{$self}__track {
+          margin-left: -252px;
+          padding-left: 252px;
+        }
+      }
+
+      &:nth-child(even) {
+        #{$self}__track {
+          margin-right: -252px;
+          padding-right: 252px;
+        }
+      }
+    }
 
     &:nth-child(odd) {
       #{$self}__main-wrapper {
@@ -232,6 +276,28 @@ export default {
   @media (min-width: $media-sm) {
     padding-top: 60px;
 
+    &--opened {
+      #{$self}__track {
+        height: 88px;
+        margin: 0 -24px;
+        padding: 0 24px;
+      }
+
+      &:nth-child(odd) {
+        #{$self}__track {
+          margin-left: -260px;
+          padding-left: 260px;
+        }
+      }
+
+      &:nth-child(even) {
+        #{$self}__track {
+          margin-right: -260px;
+          padding-right: 260px;
+        }
+      }
+    }
+
     &:nth-child(odd) {
       #{$self}__main-wrapper {
         margin-left: -224px;
@@ -266,6 +332,22 @@ export default {
   @media (min-width: $media-md) {
     padding-top: 80px;
 
+    &--opened {
+      &:nth-child(odd) {
+        #{$self}__track {
+          margin-left: -368px;
+          padding-left: 368px;
+        }
+      }
+
+      &:nth-child(even) {
+        #{$self}__track {
+          margin-right: -368px;
+          padding-right: 368px;
+        }
+      }
+    }
+
     &:nth-child(odd) {
       #{$self}__main-wrapper {
         margin-left: -324px;
@@ -293,7 +375,7 @@ export default {
     }
 
     &__track {
-      margin-bottom: 26px;
+      margin-bottom: 26px !important;
     }
 
     &__title {
@@ -303,6 +385,27 @@ export default {
 
   @media (min-width: $media-lg) {
     padding-top: 92px;
+
+    &--opened {
+      #{$self}__track {
+        margin: 0 -20vw;
+        padding: 0 20vw;
+      }
+
+      &:nth-child(odd) {
+        #{$self}__track {
+          margin-left: calc(-20vw - 380px - 20px - 96px);
+          padding-left: calc(20vw + 380px + 20px + 96px);
+        }
+      }
+
+      &:nth-child(even) {
+        #{$self}__track {
+          margin-right: calc(-20vw - 380px - 20px - 96px);
+          padding-right: calc(20vw + 380px + 20px + 96px);
+        }
+      }
+    }
 
     &:nth-child(odd) {
       #{$self}__main-wrapper {
@@ -343,7 +446,7 @@ export default {
     }
 
     &__track {
-      margin-bottom: 40px;
+      margin-bottom: 40px !important;
     }
   }
 }
