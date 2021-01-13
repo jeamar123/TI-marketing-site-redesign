@@ -3,6 +3,7 @@
     <Hero :data="eventData.hero" />
     <About :data="eventData.about" />
     <Apply :data="eventData.apply" />
+    <Schedule :data="eventData.schedule" />
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import eventData from '~/static/event.json';
 import Hero from '~/components/eventPage/EventHero';
 import About from '~/components/eventPage/EventAbout';
 import Apply from '~/components/eventPage/EventApply';
+import Schedule from '~/components/eventPage/Schedule/Schedule'; 
 
 export default {
   name: 'EventPage',
@@ -19,6 +21,7 @@ export default {
     Hero,
     About,
     Apply,
+    Schedule,
   },
   data: () => ({
     eventData,
