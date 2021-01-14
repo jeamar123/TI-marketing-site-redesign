@@ -1,5 +1,11 @@
 <template>
-  <article class="headliner" :class="{'headliner--opened': isScheduleOpened}">
+  <article
+    class="headliner"
+    :class="[
+      `headliner--${isLeft ? 'left' : 'right'}`,
+      { 'headliner--opened': isScheduleOpened }
+    ]"
+    >
     <div class="headliner__heading-wrapper--xs">
       <Heading color="white" type="h3" class="headliner__heading">
         {{ data.speakerName }}
@@ -54,6 +60,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isLeft: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Heading,
@@ -73,53 +83,24 @@ export default {
 
 .headliner {
   $self: &;
+  $left: '';
+  $right: '';
   cursor: pointer;
   padding-top: 38px;
   background-color: $black;
   transition: height 0.3s;
 
-  &:nth-child(odd) {
+  &--left:nth-child(odd),
+  &--right:nth-child(odd) {
     #{$self}__image-wrapper::before {
       left: calc(50% + 20px);
     }
   }
 
-  &:nth-child(even) {
+  &--left:nth-child(even),
+  &--right:nth-child(odd) {
     #{$self}__image-wrapper::before {
       left: calc(50% - 20px);
-    }
-  }
-
-  &:nth-child(3n + 1) {
-    #{$self}__image-wrapper::before {
-      background-color: $accent-red;
-    }
-
-    #{$self}__main-wrapper,
-    #{$self}__track {
-      background-color: $accent-yellow;
-    }
-  }
-
-  &:nth-child(3n + 2) {
-    #{$self}__image-wrapper::before {
-      background-color: $accent-yellow;
-    }
-
-    #{$self}__main-wrapper,
-    #{$self}__track {
-      background-color: $accent-red;
-    }
-  }
-
-  &:nth-child(3n + 3) {
-    #{$self}__image-wrapper::before {
-      background-color: $accent-red;
-    }
-
-    #{$self}__main-wrapper,
-    #{$self}__track {
-      background-color: $accent-blue;
     }
   }
 
@@ -147,6 +128,7 @@ export default {
       top: 20px;
       width: 240px;
       height: 360px;
+      background-color: var(--accent-color, #FF0054);
       transform: translateX(-50%);
     }
   }
@@ -170,6 +152,7 @@ export default {
     padding-top: 262px;
     margin-top: -250px;
     color: $black;
+    background-color: var(--bg-color,  #FFBD00);
     transition: color 0.3s, background-color 0.3s, height 0.3s;
   }
 
@@ -179,6 +162,7 @@ export default {
     line-height: 22px;
     text-transform: uppercase;
     margin-bottom: 16px !important;
+    background-color: var(--bg-color,  #FFBD00);
     transition: height 0.3s;
   }
 
@@ -210,14 +194,16 @@ export default {
         padding: 0 16px;
       }
 
-      &:nth-child(odd) {
+      &.headliner--left:nth-child(odd),
+      &.headliner--right:nth-child(even) {
         #{$self}__track {
           margin-left: -252px;
           padding-left: 252px;
         }
       }
 
-      &:nth-child(even) {
+      &.headliner--left:nth-child(even),
+      &.headliner--left:nth-child(odd) {
         #{$self}__track {
           margin-right: -252px;
           padding-right: 252px;
@@ -225,7 +211,8 @@ export default {
       }
     }
 
-    &:nth-child(odd) {
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
       #{$self}__main-wrapper {
         margin-left: -216px;
         padding-left: 252px;
@@ -238,7 +225,8 @@ export default {
       }
     }
 
-    &:nth-child(even) {
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
       #{$self}__image-wrapper {
         right: 0;
         order: 2;
@@ -285,14 +273,16 @@ export default {
         padding: 0 24px;
       }
 
-      &:nth-child(odd) {
+      &.headliner--left:nth-child(odd),
+      &.headliner--right:nth-child(even) {
         #{$self}__track {
           margin-left: -260px;
           padding-left: 260px;
         }
       }
 
-      &:nth-child(even) {
+      &.headliner--left:nth-child(even),
+      &.headliner--right:nth-child(odd) {
         #{$self}__track {
           margin-right: -260px;
           padding-right: 260px;
@@ -300,7 +290,8 @@ export default {
       }
     }
 
-    &:nth-child(odd) {
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
       #{$self}__main-wrapper {
         margin-left: -224px;
         padding-left: 260px;
@@ -313,7 +304,8 @@ export default {
       }
     }
 
-    &:nth-child(even) {
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
       #{$self}__main-wrapper {
         margin-right: -224px;
         padding-right: 260px;
@@ -335,14 +327,16 @@ export default {
     padding-top: 80px;
 
     &--opened {
-      &:nth-child(odd) {
+      &.headliner--left:nth-child(odd),
+      &.headliner--right:nth-child(even) {
         #{$self}__track {
           margin-left: -368px;
           padding-left: 368px;
         }
       }
 
-      &:nth-child(even) {
+      &.headliener--left:nth-child(even),
+      &.headliener--right:nth-child(odd) {
         #{$self}__track {
           margin-right: -368px;
           padding-right: 368px;
@@ -350,14 +344,16 @@ export default {
       }
     }
 
-    &:nth-child(odd) {
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
       #{$self}__main-wrapper {
         margin-left: -324px;
         padding-left: 368px;
       }
     }
 
-    &:nth-child(even) {
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
       #{$self}__main-wrapper {
         margin-right: -324px;
         padding-right: 368px;
@@ -392,16 +388,19 @@ export default {
       #{$self}__track {
         margin: 0 -20vw;
         padding: 0 20vw;
+        width: 100vw;
       }
 
-      &:nth-child(odd) {
+      &.headliner--left:nth-child(odd),
+      &.headliner--right:nth-child(even) {
         #{$self}__track {
           margin-left: calc(-20vw - 380px - 20px - 96px);
           padding-left: calc(20vw + 380px + 20px + 96px);
         }
       }
 
-      &:nth-child(even) {
+      &.headliner--left:nth-child(even),
+      &.headliner--right:nth-child(odd) {
         #{$self}__track {
           margin-right: calc(-20vw - 380px - 20px - 96px);
           padding-right: calc(20vw + 380px + 20px + 96px);
@@ -409,7 +408,8 @@ export default {
       }
     }
 
-    &:nth-child(odd) {
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
       #{$self}__main-wrapper {
         margin-left: calc(-20vw - 380px);
         padding-left: calc(20vw + 380px + 20px + 96px);
@@ -422,7 +422,8 @@ export default {
       }
     }
 
-    &:nth-child(even) {
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
       #{$self}__main-wrapper {
         margin-right: calc(-20vw - 380px);
         padding-right: calc(20vw + 380px + 20px + 96px);

@@ -1,18 +1,20 @@
 <template>
-  <div class="shedule">
+  <div class="track">
     <Headliner
       :data="headliner"
+      :is-left="isLeft"
       :is-schedule-opened="isScheduleOpened"
-      class="schedule__headliner"
+      class="track__headliner"
       @click.native="isScheduleOpened = !isScheduleOpened"
     />
     <transition name="fade">
-      <div v-show="isScheduleOpened" class="schedule__talks-list">
+      <div v-show="isScheduleOpened" class="track__talks-list">
         <Card
           v-for="(talk, index) in talks"
           :key="index"
           :data="talk"
-          class="schedule__talk"
+          :is-left="isLeft"
+          class="track__talk"
         />
       </div>
     </transition>
@@ -29,6 +31,10 @@ export default {
     track: {
       type: Array,
       default: () => [],
+    },
+    isLeft: {
+      type: Boolean,
+      default: false,
     },
   },
   components: {
@@ -57,11 +63,26 @@ export default {
 <style lang="scss">
 @import '~/assets/scss/variables';
 
-.schedule {
+.track {
+  &:nth-child(3n + 1) {
+    --accent-color: #FF0054;
+    --bg-color: #FFBD00;
+  }
+
+  &:nth-child(3n + 2) {
+    --accent-color:#FFBD00;
+    --bg-color:#FF0054;
+  }
+
+  &:nth-child(3n + 3) {
+    --accent-color:#FF0054;
+    --bg-color:  #146DF2;
+  }
+
   &__talks-list {
     margin: 0 -16px;
     padding: 0 16px 40px 16px;
-    background-color: $accent-yellow;
+    background-color: var(--bg-color,  #FFBD00);
   }
 
   @media (max-width: $media-xs - 1px) {

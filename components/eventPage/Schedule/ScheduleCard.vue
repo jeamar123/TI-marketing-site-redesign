@@ -1,5 +1,8 @@
 <template>
-  <article class="talk">
+  <article
+    class="talk"
+    :class="`talk--${isLeft ? 'left' : 'right'}`"
+  >
     <div class="talk__img-wrapper">
       <img
         src="https://picsum.photos/300/500"
@@ -54,6 +57,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    isLeft: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     Heading,
@@ -80,6 +87,33 @@ export default {
   $self: &;
   padding-top: 34px;
 
+  &--left:nth-child(even),
+  &--right:nth-child(odd) {
+    #{$self}__img-wrapper::before {
+      left: 20px;
+    }
+
+    #{$self}__breef-wrapper {
+      padding-left: 244px;
+    }
+  }
+
+  &--left:nth-child(odd),
+  &--right:nth-child(even) {
+    #{$self}__img-wrapper {
+      left: 20px;
+      margin-left: calc(100% - 220px);
+
+      &::before {
+        left: -20px;
+      }
+    }
+
+    #{$self}__breef-wrapper {
+      padding-right: 244px;
+    }
+  }
+
   &__img-wrapper::before,
   &__image {
     width: 200px;
@@ -88,13 +122,13 @@ export default {
 
   &__img-wrapper {
     position: relative;
+    margin-bottom: 20px;
 
     &::before {
       content: '';
       position: absolute;
       top: 20px;
-      left: 20px;
-      background-color: $accent-red;
+      background-color: var(--accent-color, #FF0054);
     }
   }
 
@@ -110,7 +144,6 @@ export default {
   }
 
   &__breef-wrapper {
-    padding-left: 244px;
     margin: 78px 0;
     margin-top: calc(-300px + 70px);
   }
@@ -136,10 +169,10 @@ export default {
     cursor: pointer;
 
     &:hover {
-      color: $accent-red;
+      color: var(--accent-color, #FF0054);
 
       #{$self}__icon {
-        fill: $accent-red;
+        fill: var(--accent-color, #FF0054);
       }
     }
 
@@ -161,12 +194,30 @@ export default {
     padding-top: 48px;
     display: flex;
 
-    &__info-wrapper {
-      padding-left: 44px;
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
+      #{$self}__info-wrapper {
+        padding-left: 44px;
+      }
+    }
+
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
+      flex-direction: row-reverse;
+
+      #{$self}__info-wrapper {
+        padding-right: 44px;
+      }
+    }
+
+    &__img-wrapper {
+      margin-bottom: 0;
+      margin-left: 0 !important;
+      left: 0 !important;
     }
 
     &__breef-wrapper {
-      padding: 0;
+      padding: 0 !important;
       margin: 0;
     }
 
@@ -194,14 +245,26 @@ export default {
   @media (min-width: $media-lg) {
     padding-top: 80px;
 
+    &--left:nth-child(even),
+    &--right:nth-child(odd) {
+      #{$self}__info-wrapper {
+        padding-left: 116px;
+      }
+    }
+
+    &--left:nth-child(odd),
+    &--right:nth-child(even) {
+      flex-direction: row-reverse;
+
+      #{$self}__info-wrapper {
+        padding-right: 116px;
+      }
+    }
+
     &__img-wrapper::before,
     &__image {
       width: 280px;
       height: 420px;
-    }
-
-    &__info-wrapper {
-      padding-left: 116px;
     }
 
     &__time {

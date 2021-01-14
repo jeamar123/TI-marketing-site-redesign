@@ -8,15 +8,9 @@
         v-for="(track, index) in dataArr"
         :key="index"
         :track="track"
+        :is-left="Boolean((index + 1) % 2)"
       />
     </div>
-    <!-- <div>
-      <Headliner :data="dataArr[0][0]" />
-      <Headliner :data="dataArr[0][0]" />
-      <Headliner :data="dataArr[0][0]" />
-      <Headliner :data="dataArr[0][0]" />
-      <Headliner :data="dataArr[0][0]" />
-    </div> -->
   </GenericSection>
 </template>
 
