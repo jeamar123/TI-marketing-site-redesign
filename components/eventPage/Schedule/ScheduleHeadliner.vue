@@ -73,8 +73,10 @@ export default {
 
 .headliner {
   $self: &;
+  cursor: pointer;
   padding-top: 38px;
   background-color: $black;
+  transition: height 0.3s;
 
   &:nth-child(odd) {
     #{$self}__image-wrapper::before {
@@ -168,7 +170,7 @@ export default {
     padding-top: 262px;
     margin-top: -250px;
     color: $black;
-    transition: color 0.3s, background-color 0.3s;
+    transition: color 0.3s, background-color 0.3s, height 0.3s;
   }
 
   &__track {
