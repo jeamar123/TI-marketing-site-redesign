@@ -13,5 +13,109 @@
   "apply": {
     "title": "Want to share your experience?",
     "description": "If you’re an expert in your IT field, ArcticCon is a great platform to get your message out. Show off your research, an attack or even a solution you implemented that others should see. Well, you are in luck! Call For Papers is now open. Click below to apply!"
+  },
+  "schedule": {
+    "break it": [
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      }
+    ],
+    "build it": [
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...",
+        "schedule": "11:00 am - 12:00am"
+      }
+    ],
+    "show it": [
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore...",
+        "schedule": "11:00 am - 12:00am"
+      },
+      {
+        "speakerName": "Brian Page",
+        "speakerCompany": "Xiologic",
+        "track": "Break it!",
+        "talkName": "Engineer DeathMatch - Hybrid Cloud Edition",
+        "talkDescription": "Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible? Data is your most valuable resource, Applications are the core of what makes your organization successful... How do you keep them secure? How do you access them in the most efficient way possible?",
+        "schedule": "11:00 am - 12:00am"
+      }
+    ]
   }
 }
