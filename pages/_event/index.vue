@@ -5,6 +5,7 @@
     <Apply :data="eventData.apply" />
     <Schedule :data="eventData.schedule" />
     <Villages :data="eventData.villages" />
+    <Volunteering />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import About from '~/components/eventPage/EventAbout';
 import Apply from '~/components/eventPage/EventApply';
 import Schedule from '~/components/eventPage/Schedule/Schedule';
 import Villages from '~/components/eventPage/Villages/Villages';
+import Volunteering from '~/components/eventPage/Volunteering';
 
 export default {
   name: 'EventPage',
@@ -25,6 +27,7 @@ export default {
     Apply,
     Schedule,
     Villages,
+    Volunteering,
   },
   data: () => ({
     eventData,
