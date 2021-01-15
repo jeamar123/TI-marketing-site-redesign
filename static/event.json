@@ -139,5 +139,9 @@
       "name": "Lockpick village",
       "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
     }
-  ]
+  ],
+  "sponsors": {
+    "golden": ["SponsorName", "SponsorName", "SponsorName", "SponsorName"],
+    "silver": ["SponsorName", "SponsorName", "SponsorName", "SponsorName"]
+  }
 }
