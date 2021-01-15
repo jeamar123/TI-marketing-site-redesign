@@ -91,7 +91,7 @@ export default {
   transition: height 0.3s;
 
   &--left:nth-child(odd),
-  &--right:nth-child(odd) {
+  &--right:nth-child(even) {
     #{$self}__image-wrapper::before {
       left: calc(50% + 20px);
     }
