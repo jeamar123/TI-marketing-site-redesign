@@ -49,6 +49,8 @@ export default {
 @import '~/assets/scss/variables';
 
 .volunteering {
+  padding-bottom: 40px;
+
   &__heading {
     margin-bottom: 26px;
   }
@@ -59,7 +61,7 @@ export default {
 
   @media (min-width: $media-xs) {
     &__form {
-      width: 448px;
+      max-width: 448px;
       margin: 0 auto;
     }
   }
@@ -96,7 +98,7 @@ export default {
     }
   }
 
-    @media (min-width: $media-lg) {
+  @media (min-width: $media-lg) {
     padding: 348px 20% 274px 20%;
 
     &__heading {
