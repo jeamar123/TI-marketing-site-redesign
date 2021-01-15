@@ -117,5 +117,27 @@
         "schedule": "11:00 am - 12:00am"
       }
     ]
-  }
+  },
+  "villages": [
+    {
+      "name": "Lockpick village",
+      "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
+    },
+    {
+      "name": "Lockpick village",
+      "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
+    },
+    {
+      "name": "Lockpick village",
+      "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
+    },
+    {
+      "name": "Lockpick village",
+      "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
+    },
+    {
+      "name": "Lockpick village",
+      "description": "Lockpick villages is back this years with all tools you’ll need to test physical controls."
+    }
+  ]
 }
