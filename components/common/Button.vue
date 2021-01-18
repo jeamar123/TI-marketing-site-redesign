@@ -42,6 +42,17 @@ export default {
   font-size: 24px;
   line-height: 24px;
   padding: 16px 0;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s, opacity 0.3s;
+
+  &:hover {
+    color: $accent-red;
+    border-color: $accent-red;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
 
   &--white {
     color: $white;

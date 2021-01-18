@@ -7,6 +7,7 @@
     <Villages :data="eventData.villages" />
     <Volunteering />
     <Sponsors :data="eventData.sponsors" />
+    <Tickets :data="eventData.tickets" />
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import Schedule from '~/components/eventPage/Schedule/Schedule';
 import Villages from '~/components/eventPage/Villages/Villages';
 import Volunteering from '~/components/eventPage/Volunteering';
 import Sponsors from '~/components/eventPage/Sponsors/SponsorsSection';
+import Tickets from '~/components/eventPage/Tickets/TicketsSection';
 
 export default {
   name: 'EventPage',
@@ -31,6 +33,7 @@ export default {
     Villages,
     Volunteering,
     Sponsors,
+    Tickets,
   },
   data: () => ({
     eventData,

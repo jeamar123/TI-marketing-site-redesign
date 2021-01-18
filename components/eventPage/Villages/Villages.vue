@@ -3,32 +3,34 @@
     <Heading text-align="center" class="villages__heading">
       Villages
     </Heading>
-    <Carousel
-      autoplay
-      autoplay-hover-pause
-      loop
-      navigation-enabled
-      :pagination-enabled="false"
-      :autoplay-timeout="2000"
-      :per-page-custom="[
-        [320, 1],
-        [720, 3],
-      ]"
-      navigation-next-label="&#8594;"
-      navigation-prev-label="&#8592;"
-      class="villages__carousel"
-    >
-      <Slide
-        v-for="(village, index) in data"
-        :key="index"
-        class="village__slide"
+    <client-only>
+      <Carousel
+        autoplay
+        autoplay-hover-pause
+        loop
+        navigation-enabled
+        :pagination-enabled="false"
+        :autoplay-timeout="2000"
+        :per-page-custom="[
+          [320, 1],
+          [720, 3],
+        ]"
+        navigation-next-label="&#8594;"
+        navigation-prev-label="&#8592;"
+        class="villages__carousel"
       >
-        <Card
-          :village="village"
-          class="villages__slide-card"
-        />
-      </Slide>
-    </Carousel>
+        <Slide
+          v-for="(village, index) in data"
+          :key="index"
+          class="village__slide"
+        >
+          <Card
+            :village="village"
+            class="villages__slide-card"
+          />
+        </Slide>
+      </Carousel>
+    </client-only>
   </GenericSection>
 </template>
 
