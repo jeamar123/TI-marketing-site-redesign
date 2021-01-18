@@ -143,5 +143,19 @@
   "sponsors": {
     "golden": ["SponsorName", "SponsorName", "SponsorName", "SponsorName"],
     "silver": ["SponsorName", "SponsorName", "SponsorName", "SponsorName"]
-  }
+  },
+  "tickets": [
+    {
+      "price": 0,
+      "access": [ "Access to live conference"]
+    },
+    {
+      "price": 10,
+      "access": [ "Access to live conference", "Access to record of talks" ]
+    },
+    {
+      "price": 30,
+      "access": [ "Access to offline conference", "Access to live conference", "Access to record of talks" ]
+    }
+  ]
 }
