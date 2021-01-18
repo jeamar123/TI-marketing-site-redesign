@@ -45,8 +45,8 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseURL: development
-      ? 'https://dev.exploitcon.com/api'
-      : 'https://exploitcon.com/api',
+      ? 'https://test.exploitcon.com'
+      : 'https://exploitcon.com',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

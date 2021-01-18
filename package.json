@@ -14,7 +14,6 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/svg-sprite": "^0.5.2",
-    "aws-amplify": "^3.3.14",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "nuxt": "^2.14.6",
