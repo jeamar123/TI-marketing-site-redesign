@@ -98,6 +98,10 @@ export default {
     background-color: $black;
     border: 1px solid $white;
     color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 22px;
+    resize: none;
 
     &:focus {
       outline: none;
@@ -125,6 +129,7 @@ export default {
     position: absolute;
     left: 25px;
     font-size: 16px;
+    line-height: 1.5;
     padding: 0 5px;
     opacity: 0;
     top: 7px;
