@@ -3,7 +3,7 @@
     <Hero id="home" />
     <main>
       <About id="about" />
-      <Events id="events" />
+      <Events :events-list="upcomingEvents" id="events" />
       <Blog id="blog" />
     </main>
   </div>
@@ -23,5 +23,17 @@ export default {
     Events,
     Blog,
   },
+  asyncData({ store }) {
+    let upcomingEvents = null;
+    let blogPosts = null;
+
+    const getEvents = store.dispatch('crud/GET', { route: '/admin/event/upcoming' })
+      .then (data => { upcomingEvents = data });
+      
+
+    return Promise.all([ getEvents ])
+      .then(() => ({ upcomingEvents }))
+      .catch(data => { console.log(data) });
+  }
 }
 </script>
