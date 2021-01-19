@@ -4,14 +4,15 @@
       Blog
     </Heading>
     <FirstBlogCard :post="blogPosts[0]" class="blog__first-card"/>
-    <div class="blog__cards-wrapper">
+    <!-- <div class="blog__cards-wrapper">
       <BlogCard
         v-for="post in cardPosts"
         :key="post.id"
         :post="post"
         class="blog__card"
       />
-    </div>
+    </div> -->
+    <MoreBlogPosts :posts="cardPosts" />
   </GenericSection>
 </template>
 
@@ -19,7 +20,7 @@
 import GenericSection from '~/components/common/GenericSection';
 import Heading from '~/components/common/Heading';
 import FirstBlogCard from './FirstBlogCard';
-import BlogCard from './BlogCard';
+import MoreBlogPosts from '~/components/common/blog/MoreBlogPosts';
 
 export default {
   name: 'HomePageBlog',
@@ -28,7 +29,6 @@ export default {
     GenericSection,
     Heading,
     FirstBlogCard,
-    BlogCard,
   },
   data: () => ({
     blogPosts: [
@@ -114,47 +114,6 @@ export default {
 
   &__first-card {
     margin-bottom: 32px;
-  }
-
-  &__cards-wrapper {
-    display: flex;
-    flex-flow: column;
-  }
-
-  &__card {
-    margin-bottom: 24px;
-  }
-
-  @media (min-width: $media-xs) {
-    &__cards-wrapper {
-      flex-flow: row;
-    }
-
-    &__card {
-      margin-right: 24px;
-      margin-bottom: 0;
-
-      &:nth-child(2) {
-        margin-right: 0;
-      }
-
-      &:last-child {
-        display: none;
-      }
-    }
-  }
-
-  @media (min-width: $media-md) {
-    &__card {
-      &:nth-child(2) {
-        margin-right: 20px;
-      }
-
-      &:last-child {
-        margin-right: 0;
-        display: block;
-      }
-    }
   }
 }
 </style>

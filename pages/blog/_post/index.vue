@@ -1,19 +1,28 @@
 <template>
   <div>
     <BlogPost :post="blogPosts[0]" />
-    <MoreBlogPosts :allPosts="blogPosts" />
+    <GenericSection>
+      <Heading color="whiite" text-align="center">
+        Blog
+      </Heading>
+      <MoreBlogPosts :posts="cardPosts" />
+    </GenericSection>
   </div>
 </template>
 
 <script>
 import BlogPost from '~/components/blog/BlogPost';
-import MoreBlogPosts from '~/components/blog/MoreBlogPosts';
+import GenericSection from '~/components/common/GenericSection';
+import Heading from '~/components/common/Heading';
+import MoreBlogPosts from '~/components/common/blog/MoreBlogPosts';
 
 export default {
   name: 'BlogPostPage',
   props: {},
   components: {
     BlogPost,
+    GenericSection,
+    Heading,
     MoreBlogPosts,
   },
   data: () => ({
@@ -77,7 +86,14 @@ export default {
       },
     ],
   }),
-  computed: {},
+  computed: {
+    cardPosts() {
+      const posts = [...this.blogPosts];
+      posts.splice(0, 1);
+
+      return posts.splice(0, 3);
+    },
+  },
   methods: {},
 };
 </script>
