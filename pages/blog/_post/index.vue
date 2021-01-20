@@ -1,7 +1,7 @@
 <template>
   <div>
     <BlogPost :post="blogPost" />
-    <MorePosts :posts="blogPostsList" />
+    <MorePosts :all-posts="blogPostsList" />
   </div>
 </template>
 
