@@ -1,16 +1,28 @@
 <template>
-  <GenericSection>
-      <Heading color="whiite" text-align="center">
+  <GenericSection class="more-blog">
+      <Heading
+        color="white"
+        text-align="center"
+        class="more-blog__heading"
+      >
         Blog
       </Heading>
-      <MoreBlogPosts :posts="cardPosts" />
+      <MoreBlogPosts
+        :posts="allPosts"
+        class="more-blog__posts"
+      />
     </GenericSection>
 </template>
 
 <script>
 export default {
   name: '',
-  props: {},
+  props: {
+    allPosts: {
+      type: Array,
+      default: () => [],
+    },
+  },
   components: {},
   data: () => ({}),
   computed: {},
@@ -21,5 +33,15 @@ export default {
 <style lang="scss">
 @import '~/assets/scss/variables';
 
+.more-blog {
+  &__heading {
+    margin-bottom: 32px;
+  }
 
+  @media (min-width: $media-sm) {
+    &__heading {
+      margin-bottom: 62px;
+    } 
+  }
+}
 </style>

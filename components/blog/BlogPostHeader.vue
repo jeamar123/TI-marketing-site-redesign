@@ -1,17 +1,42 @@
 <template>
   <section class="post-header">
-    <div class="post-header__wrapper" :style="`background-image: url(${post.img})`">
+    <div
+      class="post-header__wrapper"
+      :style="`background-image: url(${post.head_picture})`"
+    >
       <h1 class="post-header__title">
         {{ post.title }}
       </h1>
     </div>
     <div class="post-header__author">
-      {{ post.author }}
+      <span>
+        {{ post.author }}
+      </span>
+      <svg-icon
+        name="arrow"
+        width="32"
+        height="16"
+        fill="#0B0A14"
+        class="post-header__icon"
+      />
+      <div class="post-header__date">
+        <span class="post-header__date-item">
+          {{ weekday }}
+        </span>
+        <span class="post-header__date-item">
+          {{ day }}
+        </span>
+        <span class="post-header__date-item">
+          {{ time }}
+        </span>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'BlogPostHeader',
   props: {
@@ -22,7 +47,17 @@ export default {
   },
   components: {},
   data: () => ({}),
-  computed: {},
+  computed: {
+    weekday() {
+      return moment(this.post.created).format('ddd');
+    },
+    day() {
+      return moment(this.post.created).format('MMM DD YYYY');
+    },
+    time() {
+      return moment(this.post.created).format('h:mm a z');
+    },
+  },
   methods: {},
 };
 </script>
@@ -85,6 +120,23 @@ export default {
     line-height: 24px;
     z-index: 3;
     color: $black;
+  }
+
+  &__icon {
+    margin-left: 16px;
+  }
+
+  &__date {
+    display: flex;
+  }
+
+  &__date-item {
+    padding: 0 16px;
+    border-right: 2px solid $black;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 
   @media (min-width: $media-xs) {

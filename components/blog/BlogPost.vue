@@ -2,7 +2,7 @@
   <article class="blog-post">
     <Header :post="post" class="blog-post__header" />
     <section class="blog-post__description">
-      {{ post.text }}
+      {{ post.body }}
     </section>
   </article>
 </template>
