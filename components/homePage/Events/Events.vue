@@ -15,22 +15,24 @@
 </template>
 
 <script>
-import jsonData from '~/static/data.json';
 import GenericSection from '~/components/common/GenericSection';
 import Heading from '~/components/common/Heading';
 import EventCard from './EventCard';
 
 export default {
   name: 'HomePageEvents',
-  props: {},
+  props: {
+    eventsList: {
+      type: Array,
+      default: () => [],
+    },
+  },
   components: {
     GenericSection,
     Heading,
     EventCard,
   },
-  data: () => ({
-    eventsList: jsonData.events,
-  }),
+  data: () => ({}),
   computed: {},
   methods: {},
 };

@@ -38,6 +38,18 @@ export default {
     Tickets,
     Contacts,
   },
+  asyncData({ store, router }) {
+    let cityData = null;
+// use store to get city for route 
+// or get all events here than search for needed one and send event
+// or if there's no data in store about event, get all events and search, but if there is data in store - use that one
+    store.dispatch('crud/GET', { route: '/city/oregon' })
+      .then(data => { cityData = data })
+      .catch(data => { 
+        console.log(data);
+        router.push('/');
+      })
+  },
   data: () => ({
     eventData,
   }),
