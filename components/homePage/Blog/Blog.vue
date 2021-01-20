@@ -4,14 +4,6 @@
       Blog
     </Heading>
     <FirstBlogCard :post="blogPosts[0]" class="blog__first-card"/>
-    <!-- <div class="blog__cards-wrapper">
-      <BlogCard
-        v-for="post in cardPosts"
-        :key="post.id"
-        :post="post"
-        class="blog__card"
-      />
-    </div> -->
     <MoreBlogPosts :posts="cardPosts" />
   </GenericSection>
 </template>
@@ -24,72 +16,18 @@ import MoreBlogPosts from '~/components/common/blog/MoreBlogPosts';
 
 export default {
   name: 'HomePageBlog',
-  props: {},
+  props: {
+    blogPosts: {
+      type: Array,
+      default: () => [],
+    },
+  },
   components: {
     GenericSection,
     Heading,
     FirstBlogCard,
   },
-  data: () => ({
-    blogPosts: [
-      {
-        id: 1,
-        img: 'https://picsum.photos/600/800',
-        title: "Apple's Head of Security Charged in Bribery Case: Here's How It Happened",
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 2,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 3,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 4,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 5,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 6,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 7,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-      {
-        id: 8,
-        img: 'https://picsum.photos/600/800',
-        title: 'Test Title for a secondary blog post card',
-        author: 'Brian Page',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius',
-      },
-    ],
-  }),
+  data: () => ({}),
   computed: {
     cardPosts() {
       const posts = [...this.blogPosts];

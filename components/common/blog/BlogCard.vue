@@ -1,5 +1,5 @@
 <template>
-  <article class="blog-card">
+  <article class="blog-card" @click="$router.push(`/blog/${post.id}`)">
     <div class="blog-card__image-wrapper">
       <img
         :src="post.head_picture"
@@ -46,6 +46,7 @@ export default {
 
 .blog-card {
   position: relative;
+  cursor: pointer;
 
   &::before,
   &::after {

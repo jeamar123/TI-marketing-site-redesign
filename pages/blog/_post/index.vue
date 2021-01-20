@@ -18,7 +18,7 @@ export default {
   },
   asyncData({ store, route }) {
     let blogPost = {};
-    let blogPostsList = null;
+    let blogPostsList = [];
 
     const getPostsList = store.dispatch('crud/GET', { route: '/admin/blog' })
       .then(data => { blogPostsList = data });
