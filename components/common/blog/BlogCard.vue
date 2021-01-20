@@ -1,6 +1,12 @@
 <template>
-  <article class="blog-card">
-    <img :src="post.img" alt="Blog post image" class="blog-card__image" />
+  <article class="blog-card" @click="$router.push(`/blog/${post.id}`)">
+    <div class="blog-card__image-wrapper">
+      <img
+        :src="post.head_picture"
+        alt="Blog post image"
+        class="blog-card__image"
+      />
+    </div>
     <Heading color="white" type="h4" class="blog-card__heading">
       {{ post.title }}
     </Heading>
@@ -28,7 +34,7 @@ export default {
   data: () => ({}),
   computed: {
     textFiltered() {
-      return shortenText(this.post.description, 120);
+      return shortenText(this.post.body, 120);
     },
   },
   methods: {},
@@ -40,6 +46,7 @@ export default {
 
 .blog-card {
   position: relative;
+  cursor: pointer;
 
   &::before,
   &::after {
@@ -60,9 +67,15 @@ export default {
     background-image: linear-gradient(89.82deg, rgba(20, 109, 242, 0.2) 0.15%, rgba(255, 0, 84, 0.2) 99.84%);
   }
 
+  &__image-wrapper,
   &__image {
     height: 184px;
     width: 100%;
+    background-color: $accent-red;
+    background-image: linear-gradient(rgba(11, 10, 20, 0.8), rgba(11, 10, 20, 0.8));
+  }
+  
+  &__image {
     object-fit: cover;
     object-position: center;
     margin-bottom: 4px;
