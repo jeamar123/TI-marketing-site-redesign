@@ -54,6 +54,10 @@ export default {
     opacity: 0.6;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   &--white {
     color: $white;
     border: 2px solid $white;

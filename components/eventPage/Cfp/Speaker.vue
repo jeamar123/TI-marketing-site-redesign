@@ -16,33 +16,15 @@
     <template #form>
       <form @submit.prevent="goToTalk">
         <Input
-          v-model="fields.firstName"
-          name="first-name"
-          label="First Name"
-        />
-        <Input
-          v-model="fields.lastName"
-          name="last-name"
-          label="Last Name"
-        />
-        <div class="cfp-speaker__inputs-wrapper">
-          <Input
-            v-model="fields.organization"
-            name="organization"
-            label="Organization"
-          />
-          <Input
-            v-model="fields.position"
-            name="position"
-            label="Position"
-          />
-        </div>
-        <Input
-          v-model="fields.bio"
-          name="bio"
-          label="Bio"
-          is-multiline
-          :rows="4"
+          v-for="field in formFields"
+          :key="field"
+          v-model="form[field].value"
+          :name="field"
+          :label="form[field].label"
+          :error="form[field].error"
+          :is-multiline="form[field].isMultiline"
+          :rows="form[field].rows"
+          @blur="validateField(field)"
         />
         <Button class="form-layout__button">
           next
@@ -54,6 +36,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { validate } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -61,26 +44,79 @@ import Button from '~/components/common/Button';
 
 export default {
   name: 'CfpSpeaker',
-  props: {
-    fields: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: {},
   components: {
     FormLayout,
     Heading,
     Input,
     Button,
   },
-  data: () => ({}),
+  data: () => ({
+    form: {
+      first_name: {
+        value: '',
+        error: [],
+        rule: 'required',
+        label: 'First Name',
+      },
+      last_name: {
+        value: '',
+        error: [],
+        rule: 'required',
+        label: 'Last Name',
+      },
+      organization: {
+        value: '',
+        error: [],
+        rule: 'required',
+        label: 'Organization',
+      },
+      position: {
+        value: '',
+        error: [],
+        rule: 'required',
+        label: 'Position',
+      },
+      bio: {
+        value: '',
+        error: [],
+        rule: 'required',
+        label: 'Bio',
+        isMultiline: true,
+        rows: 4,
+      },
+    },
+  }),
   computed: {
     ...mapState([
       'baseUrl',
-    ])
+    ]),
+    formFields() {
+      return Object.keys(this.form);
+    },
   },
   methods: {
-    goToTalk() {},
+    goToTalk() {
+      this.clearAllErrors();
+
+      const isValid = this.validateForm();
+      console.log(isValid);
+    },
+    validateField(field) {
+      this.form[field].error = validate(field, this.form[field].value);
+    },
+    validateForm() {
+      this.formFields.forEach(field => {
+        this.validateField(field);
+      });
+
+      return Object.values(this.form).every(field => !field.error.length);
+    },
+    clearAllErrors() {
+      this.formFields.forEach(field => {
+        this.form[field].error = [];
+      });
+    },
   },
 };
 </script>

@@ -1,8 +1,14 @@
 <template>
   <GenericSection class="cfp">
-    <Speaker />
-    <Talk />
-    <Contacts />
+    <transition name="fade">
+      <Speaker />
+    </transition>
+    <transition name="fade">
+      <Talk v-if="isSpeakerFilled" />
+    </transition>
+    <transition name="fade">
+      <Contacts v-if="isSpeakerFilled && isTalkFilled" />
+    </transition>
   </GenericSection>
 </template>
 
@@ -21,7 +27,10 @@ export default {
     Talk,
     Contacts,
   },
-  data: () => ({}),
+  data: () => ({
+    isSpeakerFilled: false,
+    isTalkFilled: false,
+  }),
   computed: {},
   methods: {},
 };

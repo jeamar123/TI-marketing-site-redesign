@@ -1,10 +1,4 @@
 <template>
-  <!-- <div class="cfp-talk">
-    <div class="cfp-talk__wrapper">
-      
-    </div>
-    
-  </div> -->
   <FormLayout class="cfp-talk">
     <template #info>
       <Heading color="white" class="form-layout__heading">
