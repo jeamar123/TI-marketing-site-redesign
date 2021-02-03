@@ -1,10 +1,12 @@
 <template>
-  <article class="first-blog-card">
-    <img
-      :src="post.img"
-      alt="Blog post image"
-      class="first-blog-card__image"
-    />
+  <article class="first-blog-card" @click="$router.push(`/blog/${post.id}`)">
+    <div class="first-blog-card__image-wrapper">
+      <img
+        :src="post.head_picture"
+        alt="Blog post image"
+        class="first-blog-card__image"
+      />
+    </div>
     <Heading
       type="h3"
       color="white"
@@ -64,10 +66,19 @@ export default {
     background-image: linear-gradient(89.82deg, rgba(20, 109, 242, 0.2) 0.15%, rgba(255, 0, 84, 0.2) 99.84%);
   }
 
+  &__image-wrapper,
   &__image {
-    display: block;
     width: 100%;
     height: 168px;
+  }
+
+  &__image-wrapper {
+    background-color: $accent-red;
+    background-image: linear-gradient(rgba(11, 10, 20, 0.8), rgba(11, 10, 20, 0.8));
+  }
+
+  &__image {
+    display: block;
     object-fit: cover;
     object-position: center;
     margin-bottom: 4px;
@@ -99,6 +110,7 @@ export default {
       height: 216px;
     }
 
+    &__image-wrapper,
     &__image {
       height: 216px;
       margin-bottom: 0;
@@ -125,6 +137,7 @@ export default {
       height: 324px;
     }
 
+    &__image-wrapper,
     &__image {
       height: 324px;
     }
@@ -149,6 +162,7 @@ export default {
       height: 400px;
     }
 
+    &__image-wrapper,
     &__image {
       height: 400px;
     }

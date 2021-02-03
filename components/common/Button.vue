@@ -3,6 +3,7 @@
     class="button"
     :class="[`button--${color}`,
     {'button--smaller': isSmaller}]"
+    @click="$emit('click', $event)"
   >
     <slot />
   </button>

@@ -6,13 +6,13 @@
     </div>
     <div class="event-card__text-wrapper">
       <Heading color="white" type="h3" class="event-card__heading">
-        {{ event.shortName }}
+        {{ event.name }}
       </Heading>
       <p class="event-card__text">
         {{ textFiltered }}
       </p>
       <p class="event-card__date">
-        {{ event.date }}
+        {{ eventDate }}
       </p>
     </div>
   </article>
@@ -37,10 +37,13 @@ export default {
   data: () => ({}),
   computed: {
     bgPath() {
-      return require(`~/assets/img/bg/${this.event.city.toLowerCase()}.jpg`);
+      return require(`~/assets/img/bg/${this.event.location.toLowerCase()}.jpg`);
     },
     textFiltered() {
       return shortenText(this.event.description, 120);
+    },
+    eventDate() {
+      return moment(this.event.start).format('MMM DD YYYY');
     },
   },
   methods: {},
@@ -147,6 +150,7 @@ export default {
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: $white;
   }
 
