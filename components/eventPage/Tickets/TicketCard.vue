@@ -1,8 +1,16 @@
 <template>
-  <article class="ticket">
+  <article class="ticket" :class="{'ticket--checkout': isCheckout}">
     <p class="ticket__price">
       {{ ticket.price }}$
     </p>
+    <Heading
+      v-if="isCheckout"
+      type="h3"
+      color="white"
+      class="ticket__heading"
+    >
+      {{ticket.type}} ticket
+    </Heading>
     <dl class="ticket__access">
       <dt class="ticket__access-desc">
         This pass includes access to:
@@ -15,7 +23,15 @@
         {{ item }}
       </dd>
     </dl>
+    <Input
+      v-if="isCheckout"
+      v-model="ticketsQty"
+      :name="`${ticket.type}-qty`"
+      label="Tickets quantity"
+      @input="$emit('input', ticketsQty)"
+    />
     <Button
+      v-else
       is-smaller
       class="ticket__get"
     >
@@ -25,6 +41,8 @@
 </template>
 
 <script>
+import Heading from '~/components/common/Heading';
+import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
 
 export default {
@@ -34,8 +52,20 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    isCheckout: {
+      type: Boolean,
+      default: false,
+    },
+    ticketsQty: {
+      type: String,
+      default: '0',
+    },
   },
-  components: {},
+  components: {
+    Heading,
+    Input,
+    Button,
+  },
   data: () => ({}),
   computed: {},
   methods: {},
@@ -55,13 +85,32 @@ export default {
   transition: background-color 0.3s, border-color 0.3s;
 
   &:hover,
-  &:first-child {
+  &:first-child:not(.ticket--checkout) {
     background-color: $accent-red;
     border-color: $accent-red;
 
     #{$self}__get {
       background-color: $white;
       color: $accent-red;
+    }
+
+    .input__control,
+    .input__label {
+      background-color: $accent-red;
+      transition: background-color 0.3s;
+    }
+  }
+
+  .input__control,
+  .input__label {
+    transition: background-color 0.3s;
+  }
+
+  &--checkout {
+    #{$self}__price {
+      font-size: 32px;
+      line-height: 44px;
+      margin-bottom: 8px;
     }
   }
 
@@ -72,6 +121,10 @@ export default {
     letter-spacing: 0.05em;
     text-align: center;
     margin-bottom: 14px;
+  }
+
+  &__heading {
+    text-align: center !important;
   }
 
   &__access {
