@@ -54,6 +54,7 @@ export default {
   @media (min-width: $media-sm) {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     &__info-wrapper {
       margin-right: 24px;

@@ -1,6 +1,6 @@
 <template>
   <GenericSection class="checkout">
-      <div class="checkout__tickets">
+    <div class="checkout__tickets">
         <TicketCard
             v-for="ticket in tickets"
             :key="ticket.type"
@@ -8,8 +8,10 @@
             :ticket="ticket"
             is-checkout
         />
-        <div v-if="hasTickets" class="checkout__totals">
-            <Heading color="white" class="checkout__heading">
+    </div>
+    <FormLayout v-if="hasTickets" class="checkout__totals">
+        <template #info>
+            <Heading color="white" class="form-layout__heading">
                 Total: ${{totalPrice}}
             </Heading>
             <dl class="checkout__total-list">
@@ -24,6 +26,8 @@
                     </dd>
                 </template>
             </dl>
+        </template>
+        <template #form>
             <form>
                 <Input
                     v-model="form.name"
@@ -35,12 +39,12 @@
                     name="email"
                     label="Email"
                 />
-                <Button>
-                    pay ${{totalPrice}}
+                <Button class="form-layout__button">
+                    {{buttonText}}
                 </Button>
             </form>
-        </div>          
-      </div>
+        </template>
+    </FormLayout>
   </GenericSection>
 </template>
 
@@ -50,6 +54,7 @@ import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
 import TicketCard from '~/components/eventPage/Tickets/TicketCard';
+import FormLayout from '~/components/common/FormLayout';
 
 export default {
     name: 'Checkout',
@@ -59,6 +64,7 @@ export default {
         Input,
         Button,
         TicketCard,
+        FormLayout,
     },
     data: () => ({
         tickets: [
@@ -110,6 +116,9 @@ export default {
         hasTickets() {
             return Object.values(this.ticketsQuantity).some(cur => cur.quantity);
         },
+        buttonText() {
+            return `${this.totalPrice ? `pay $${this.totalPrice}` : 'get free tickets'}`
+        },
     },
     methods: {
         getQuantityString(ticketType, ticketObj) {
@@ -131,6 +140,49 @@ export default {
     &__tickets {
         display: grid;
         grid-gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    &__total-list {
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    &__total-ticket {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+
+        &::before {
+        content: '\2013';
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+    }
+
+    @media (min-width: $media-sm) {
+        padding-top: 120px;
+        padding-bottom: 106px;
+
+        &__tickets {
+            grid-template-columns: repeat(3, 1fr);
+            margin-bottom: 106px;
+        }
+
+        &__total-list {
+            text-align: left;
+        }
+
+        &__total-ticket {
+            justify-content: flex-start;
+        }
+    }
+
+    @media (min-width: $media-lg) {
+        padding-top: 152px;
+        padding-bottom: 120px;
     }
 }
 </style>

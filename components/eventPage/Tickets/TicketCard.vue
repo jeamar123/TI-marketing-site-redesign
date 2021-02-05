@@ -29,6 +29,7 @@
       :name="`${ticket.type}-qty`"
       label="Tickets quantity"
       @input="$emit('input', ticketsQty)"
+      class="ticket__quantity"
     />
     <Button
       v-else
@@ -95,15 +96,17 @@ export default {
     }
 
     .input__control,
-    .input__label {
+    .input__label,
+    .input__control:focus ~ .input__label {
       background-color: $accent-red;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s !important;
     }
   }
 
   .input__control,
-  .input__label {
-    transition: background-color 0.3s;
+  .input__label,
+  .input__control:focus ~ .input__label {
+    transition: background-color 0.3s !important;
   }
 
   &--checkout {
@@ -146,12 +149,16 @@ export default {
 
   &__get {
     width: 100%;
-    margin-top: auto;
     transition: background-color 0.3s;
 
     &:hover {
       border-color: $white !important;
     }
+  }
+
+  &__get,
+  &__quantity {
+    margin-top: auto;
   }
 }
 </style>

@@ -108,6 +108,8 @@ export default {
 
   &__control {
     min-height: 56px;
+    min-width: 100px;
+    width: 100%;
     padding: 12px 30px;
     background-color: $black;
     border: 1px solid $white;

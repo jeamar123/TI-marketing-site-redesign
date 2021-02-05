@@ -130,10 +130,6 @@ export default {
       display: grid;
       grid-gap: 32px;
       grid-template-columns: repeat(2, 1fr);
-
-      input {
-        width: 100%;
-      }
     }
   }
 }
