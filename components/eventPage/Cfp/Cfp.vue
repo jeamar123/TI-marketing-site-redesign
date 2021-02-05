@@ -1,18 +1,28 @@
 <template>
   <GenericSection class="cfp">
     <transition name="fade">
-      <Speaker />
+      <Speaker
+        v-if="!isSpeakerFilled && !isTalkFilled"
+        @go-to-talk="goToTalk"
+      />
     </transition>
     <transition name="fade">
-      <Talk v-if="isSpeakerFilled" />
+      <Talk
+        v-if="isSpeakerFilled && !isTalkFilled"
+        @go-to-contacts="goToContacts"
+      />
     </transition>
     <transition name="fade">
-      <Contacts v-if="isSpeakerFilled && isTalkFilled" />
+      <Contacts
+        v-if="isSpeakerFilled && isTalkFilled"
+        @send-cfp="sendCfp"
+      />
     </transition>
   </GenericSection>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import GenericSection from '~/components/common/GenericSection';
 import Speaker from './Speaker';
 import Talk from './Talk';
@@ -30,9 +40,30 @@ export default {
   data: () => ({
     isSpeakerFilled: false,
     isTalkFilled: false,
+    form: {},
   }),
   computed: {},
-  methods: {},
+  methods: {
+    ...mapActions({
+      post: 'crud/POST',
+    }),
+    goToTalk(data) {
+      this.form = { ...this.form, ...data };
+      this.isSpeakerFilled = true;
+    },
+    goToContacts(data) {
+      this.form = { ...this.form, ...data };
+      this.isTalkFilled =  true;
+    },
+    sendCfp(data) {
+      this.form = { ...this.form, ...data };
+
+      this.post({
+        route: `/public/event/${this.$route.params.event}/talk`,
+        data: this.form,
+      }).then(resp => { console.log(resp) }).catch(err => console.log(err));
+    },
+  },
 };
 </script>
 

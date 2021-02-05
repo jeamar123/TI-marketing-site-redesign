@@ -37,6 +37,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
@@ -57,31 +58,31 @@ export default {
       first_name: {
         value: '',
         error: '',
-        rule: ['required'],
+        rules: ['required'],
         label: 'First Name',
       },
       last_name: {
         value: '',
         error: '',
-        rule: ['required'],
+        rules: ['required'],
         label: 'Last Name',
       },
       organization: {
         value: '',
         error: '',
-        rule: ['required'],
+        rules: ['required'],
         label: 'Organization',
       },
       position: {
         value: '',
         error: '',
-        rule: ['required'],
+        rules: ['required'],
         label: 'Position',
       },
       bio: {
         value: '',
         error: '',
-        rule: ['required'],
+        rules: ['required'],
         label: 'Bio',
         isMultiline: true,
         rows: 4,
@@ -100,9 +101,14 @@ export default {
     validateField,
     validateForm,
     clearError,
+    transformForm,
     goToTalk() {
       const isValid = this.validateForm(this.form);
-      console.log(isValid);
+      
+      if (!isValid) return;
+      
+      const data = this.transformForm(this.form);
+      this.$emit('go-to-talk', data);
     },
   },
 };

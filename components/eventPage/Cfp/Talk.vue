@@ -16,48 +16,43 @@
     <template #form>
       <form class="cfp-talk__form" @submit.prevent="goToContacts">
         <Input
-          v-model="fields.title"
+          v-model="form.title.value"
           name="title"
-          label="Title"
+          :label="form.title.label"
+          :error="form.title.error"
+          @blur="validateField('title', form)"
+          @input="clearError('title', form)"
         />
         <div class="cfp-talk__tracks">
-          <div class="cfp-talk__track">
+          <div
+            v-for="track in tracks"
+            :key="track.value"
+            class="cfp-talk__track"
+            :class="{'selected': form.talk_type.value === track.value}"
+            @click="selectTrack(track.value)"
+          >
             <svg-icon
-              name="build-it"
+              :name="track.icon"
               width="20"
               height="16"
               fill=" #0B0A14"
               class="cfp-talk__icon"
             />
-            Build it!
+            {{track.displayValue}}
           </div>
-          <div class="cfp-talk__track">
-            <svg-icon
-              name="break-it"
-              width="20"
-              height="16"
-              fill=" #0B0A14"
-              class="cfp-talk__icon"
-            />
-            Break it!
-          </div>
-          <div class="cfp-talk__track">
-            <svg-icon
-              name="show-it"
-              width="20"
-              height="16"
-              fill=" #0B0A14"
-              class="cfp-talk__icon"
-            />
-            Show it!
+          <div v-if="form.talk_type.error" class="cfp-talk__track-error">
+            {{form.talk_type.error}}
           </div>
         </div>
         <Input
-          v-model="fields.description"
+          v-model="form.description.value"
           name="description"
-          label="Description"
-          is-multiline
-          :rows="4"
+          :error="form.description.error"
+          :label="form.description.label"
+          :is-multiline="form.description.isMultiline"
+          :rows="form.description.rows"
+          @blur="validateField('description', form)"
+          @input="clearError('description', form)"
         />
         <Button class="form-layout__button">
           next
@@ -69,6 +64,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import { transformForm } from '~/assets/js/utils';
+import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -76,26 +73,76 @@ import Button from '~/components/common/Button';
 
 export default {
   name: 'CfpSpeaker',
-  props: {
-    fields: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: {},
   components: {
     FormLayout,
     Heading,
     Input,
     Button,
   },
-  data: () => ({}),
+  data: () => ({
+    form: {
+      title: {
+        value: '',
+        error: '',
+        rules: ['required'],
+        label: 'Title',
+      },
+      description: {
+        value: '',
+        error: '',
+        rules: ['required'],
+        label: 'Description',
+        isMultiline: true,
+        rows: 4,
+      },
+      talk_type: {
+        value: '',
+        error: '',
+        rules: ['required'],
+      }
+    },
+    tracks: {
+      build_it: {
+        value: 'build_it',
+        displayValue: 'Build it!',
+        icon: 'build-it',
+      },
+      break_it: {
+        value: 'break_it',
+        displayValue: 'Break it!',
+        icon: 'break-it',
+      },
+      show_it: {
+        value: 'show_it',
+        displayValue: 'Show it!',
+        icon: 'show-it',
+      },
+    }
+  }),
   computed: {
     ...mapState([
       'baseUrl',
     ])
   },
   methods: {
-    goToContacts() {},
+    validateField,
+    validateForm,
+    clearError,
+    transformForm,
+    selectTrack(track) {
+      this.form.talk_type.value = track;
+
+      this.validateField('talk_type', this.form);
+    },
+    goToContacts() {
+      const isValid = this.validateForm(this.form);
+
+      if(!isValid) return;
+
+      const data = this.transformForm(this.form);
+      this.$emit('go-to-contacts', data);
+    },
   },
 };
 </script>
@@ -125,7 +172,7 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s;
     
-    &:nth-child(1) {
+    &:nth-child(3n + 1) {
       background-color: $accent-red;
 
       &.selected {
@@ -133,7 +180,7 @@ export default {
       }
     }
 
-    &:nth-child(2) {
+    &:nth-child(3n + 2) {
       background-color: $accent-yellow;
 
       &.selected {
@@ -141,7 +188,7 @@ export default {
       }
     }
 
-    &:nth-child(3) {
+    &:nth-child(3n + 3) {
       background-color: $accent-blue;
 
       &.selected {
@@ -153,6 +200,13 @@ export default {
   &__icon {
     margin-left: 48px;
     margin-right: 24px;
+  }
+
+  &__track-error {
+    margin-left: 48px;
+    font-size: 14px;
+    line-height: 1.2;
+    color: $error-red;
   }
 
   @media (min-width: $media-sm) {
