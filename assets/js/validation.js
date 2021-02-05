@@ -16,36 +16,44 @@ export const phone = {
 export const validate = (rule, value) => {
   let error = '';
 
-  switch (rule) {
-    case 'required': {
-      if (!required.rule.test(value)) error = required.error;
-      break;
+  rule.forEach(ruleItem => {
+    if (!error) {
+      switch (ruleItem) {
+        case 'required': {
+          if (!required.rule.test(value)) error = required.error;
+          break;
+        }
+    
+        case 'email': {
+          if (!email.rule.test(value)) error = email.error;
+          break;
+        }
+    
+        case 'phone': {
+          if (!phone.rule.test(value)) error = phone.error;
+          break;
+        }
+    
+        default: {
+          error = '';
+          break;
+        }
+      }
     }
-
-    case 'email': {
-      if (!email.rule.test(value)) error = email.error;
-      break;
-    }
-
-    case 'phone': {
-      if (!phone.rule.test(value)) error = phone.error;
-      break;
-    }
-
-    default: {
-      error = '';
-      break;
-    }
-  }
+  })
 
   return error;
 };
 
 export const validateField = (field, formObj) => {
+  clearError(field, formObj);
+
   formObj[field].error = validate(formObj[field].rule, formObj[field].value);
 } 
 
 export const validateForm = (formObj) => {
+  clearAllErrors(formObj);
+
   Object.keys(formObj).forEach(field => {
     validateField(field, formObj);
   })
