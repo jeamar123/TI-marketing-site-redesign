@@ -24,7 +24,8 @@
           :error="form[field].error"
           :is-multiline="form[field].isMultiline"
           :rows="form[field].rows"
-          @blur="validateField(field)"
+          @blur="validateField(field, form)"
+          @input="clearError(field, form)"
         />
         <Button class="form-layout__button">
           next
@@ -36,7 +37,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { validate } from '~/assets/js/validation';
+import { validateField, validateForm, clearError, clearAllErrors } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -55,31 +56,31 @@ export default {
     form: {
       first_name: {
         value: '',
-        error: [],
+        error: '',
         rule: 'required',
         label: 'First Name',
       },
       last_name: {
         value: '',
-        error: [],
+        error: '',
         rule: 'required',
         label: 'Last Name',
       },
       organization: {
         value: '',
-        error: [],
+        error: '',
         rule: 'required',
         label: 'Organization',
       },
       position: {
         value: '',
-        error: [],
+        error: '',
         rule: 'required',
         label: 'Position',
       },
       bio: {
         value: '',
-        error: [],
+        error: '',
         rule: 'required',
         label: 'Bio',
         isMultiline: true,
@@ -96,26 +97,16 @@ export default {
     },
   },
   methods: {
+    validateField,
+    validateForm,
+    clearError,
+    clearAllErrors,
     goToTalk() {
-      this.clearAllErrors();
+      this.clearAllErrors(this.form);
 
-      const isValid = this.validateForm();
+      const isValid = this.validateForm(this.form);
+
       console.log(isValid);
-    },
-    validateField(field) {
-      this.form[field].error = validate(field, this.form[field].value);
-    },
-    validateForm() {
-      this.formFields.forEach(field => {
-        this.validateField(field);
-      });
-
-      return Object.values(this.form).every(field => !field.error.length);
-    },
-    clearAllErrors() {
-      this.formFields.forEach(field => {
-        this.form[field].error = [];
-      });
     },
   },
 };
