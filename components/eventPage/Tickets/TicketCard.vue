@@ -25,10 +25,10 @@
     </dl>
     <Input
       v-if="isCheckout"
-      v-model="ticketsQty"
+      v-model="quantity"
       :name="`${ticket.type}-qty`"
       label="Tickets quantity"
-      @input="$emit('input', ticketsQty)"
+      @input="$emit('input', quantity)"
       class="ticket__quantity"
     />
     <Button
@@ -57,17 +57,15 @@ export default {
       type: Boolean,
       default: false,
     },
-    ticketsQty: {
-      type: String,
-      default: '0',
-    },
   },
   components: {
     Heading,
     Input,
     Button,
   },
-  data: () => ({}),
+  data: () => ({
+    quantity: '0',
+  }),
   computed: {},
   methods: {},
 };

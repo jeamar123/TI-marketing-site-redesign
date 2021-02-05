@@ -28,16 +28,16 @@
             </dl>
         </template>
         <template #form>
-            <form>
+            <form @submit.prevent="payForTickets">
                 <Input
-                    v-model="form.name"
-                    name="name"
-                    label="Name"
-                />
-                <Input
-                    v-model="form.email"
-                    name="email"
-                    label="Email"
+                    v-for="field in formFields"
+                    :key="field"
+                    v-model="form[field].value"
+                    :name="field"
+                    :label="form[field].label"
+                    :error="form[field].error"
+                    @blur="validateField(field, form)"
+                    @input="clearError(field, form)"
                 />
                 <Button class="form-layout__button">
                     {{buttonText}}
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import GenericSection from '~/components/common/GenericSection';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -71,14 +72,14 @@ export default {
             name: {
                 value: '',
                 error: '',
-                rule: 'required',
+                rule: ['required'],
                 label: 'Name',
             },
             email: {
                 value: '',
                 error: '',
-                rule: 'required',
-                label: 'Name',
+                rule: ['required', 'email'],
+                label: 'Email',
             },
         },
         tickets: [
@@ -113,10 +114,6 @@ export default {
                 quantity: 0,
             },
         },
-        form: {
-            name: '',
-            email: '',
-        },
     }),
     computed: {
         totalPrice() {
@@ -133,12 +130,25 @@ export default {
         buttonText() {
             return `${this.totalPrice ? `pay $${this.totalPrice}` : 'get free tickets'}`
         },
+        formFields() {
+            return Object.keys(this.form);
+        },
     },
     methods: {
+        validateField,
+        validateForm,
+        clearError,
         getQuantityString(ticketType, ticketObj) {
             return `${ticketObj.quantity}
                 ${ticketType.toLowerCase()}
                 ${Number(ticketObj.quantity) === 1 ? 'ticket' : 'tickets'}`;
+        },
+        payForTickets() {
+            const isValid = validateForm(this.form);
+
+            if (!isValid) return;
+
+            alert('pay');
         },
     },
 }
