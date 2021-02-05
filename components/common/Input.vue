@@ -4,7 +4,7 @@
     :class="[
       'input',
       {
-        'input--error': localError,
+        'input--error': error,
         'input--non-empty': !isInputEmpty,
       },
     ]"
@@ -19,7 +19,7 @@
         :placeholder="label"
         ref="inputRef"
         class="input__control"
-        @input="processInput"
+        @input="$emit('input', $event.target.value)"
         @blur="$emit('blur', $event)"
       />
       <label :for="name" class="input__label">
@@ -27,8 +27,8 @@
       </label>
     </div>
     <transition name="slide-error">
-      <div v-if="localError" class="input__error">
-        {{ localError }}
+      <div v-if="error" class="input__error">
+        {{ error }}
       </div>
     </transition>
   </div>
@@ -64,28 +64,13 @@ export default {
       default: 2,
     },
     error: {
-      type: Array,
-      default: () => [],
+      type: String,
+      default: '',
     },
   },
-  data: () => ({
-    localError: '',
-  }),
   computed: {
     isInputEmpty() {
       return !this.value.length;
-    },
-  },
-  watch: {
-    error(value) {
-      if (value.length) this.localError = value[0];
-    }
-  },
-  methods: {
-    processInput(event) {
-      this.localError = '';
-
-      this.$emit('input', event.target.value);
     },
   },
 };
