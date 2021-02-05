@@ -67,6 +67,20 @@ export default {
         FormLayout,
     },
     data: () => ({
+        form: {
+            name: {
+                value: '',
+                error: '',
+                rule: 'required',
+                label: 'Name',
+            },
+            email: {
+                value: '',
+                error: '',
+                rule: 'required',
+                label: 'Name',
+            },
+        },
         tickets: [
             {
                 type: 'Free',
