@@ -37,7 +37,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { validateField, validateForm, clearError, clearAllErrors } from '~/assets/js/validation';
+import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -57,31 +57,31 @@ export default {
       first_name: {
         value: '',
         error: '',
-        rule: 'required',
+        rule: ['required'],
         label: 'First Name',
       },
       last_name: {
         value: '',
         error: '',
-        rule: 'required',
+        rule: ['required'],
         label: 'Last Name',
       },
       organization: {
         value: '',
         error: '',
-        rule: 'required',
+        rule: ['required'],
         label: 'Organization',
       },
       position: {
         value: '',
         error: '',
-        rule: 'required',
+        rule: ['required'],
         label: 'Position',
       },
       bio: {
         value: '',
         error: '',
-        rule: 'required',
+        rule: ['required'],
         label: 'Bio',
         isMultiline: true,
         rows: 4,
@@ -100,12 +100,8 @@ export default {
     validateField,
     validateForm,
     clearError,
-    clearAllErrors,
     goToTalk() {
-      this.clearAllErrors(this.form);
-
       const isValid = this.validateForm(this.form);
-
       console.log(isValid);
     },
   },
