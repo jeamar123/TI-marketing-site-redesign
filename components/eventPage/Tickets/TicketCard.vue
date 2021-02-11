@@ -23,14 +23,19 @@
         {{ item }}
       </dd>
     </dl>
-    <Input
-      v-if="isCheckout"
-      v-model="quantity"
-      :name="`${ticket.type}-qty`"
-      label="Tickets quantity"
-      @input="$emit('input', quantity)"
-      class="ticket__quantity"
-    />
+    <template v-if="isCheckout">
+      <Input
+        v-for="field in formFields"
+        :key="field"
+        v-model="form[field].value"
+        :name="`${ticket.type}-qty`"
+        :label="form[field].label"
+        :error="form[field].error"
+        @blur="validateField(field, form)"
+        @input="inputHandler(field)"
+        class="ticket__quantity"
+      />
+    </template>
     <Button
       v-else
       is-smaller
@@ -43,6 +48,7 @@
 </template>
 
 <script>
+import { validateField, clearError } from '~/assets/js/validation';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
@@ -64,11 +70,31 @@ export default {
     Input,
     Button,
   },
-  data: () => ({
-    quantity: '0',
-  }),
-  computed: {},
-  methods: {},
+  data() {
+    return {
+      form: {
+        quantity: {
+          value: '0',
+          error: '',
+          rule: [`maxValue|${this.ticket.max}`],
+          label: 'Tickets quantity',
+        },
+      },
+    }
+  },
+  computed: {
+    formFields() {
+      return Object.keys(this.form);
+    },
+  },
+  methods: {
+    validateField,
+    clearError,
+    inputHandler(field) {
+      this.clearError(field, this.form);
+      this.$emit('input', this.form[field].value);
+    },
+  },
 };
 </script>
 
@@ -82,6 +108,7 @@ export default {
   display: flex;
   flex-flow: column;
   border: 1px solid $purple-black;
+  cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
 
   &:hover,
@@ -159,6 +186,15 @@ export default {
   &__get,
   &__quantity {
     margin-top: auto;
+  }
+
+  .input--error .input__label,
+  .input--error .input__error {
+    color: $white !important;
+  }
+
+  .input--error .input__control {
+    border-color: $white !important;
   }
 }
 </style>

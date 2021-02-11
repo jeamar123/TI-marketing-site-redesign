@@ -126,12 +126,9 @@ export default {
             return Object.keys(this.form);
         },
     },
-    // TEMPORARY
-    watch: {
-        ticketsTemp(val) {
-            this.ticketsQuantity = this.getTicketsQuantity();
-            this.isQuantityReady = true;
-        }
+    mounted() {
+        this.ticketsQuantity = this.getTicketsQuantity();
+        this.isQuantityReady = true;
     },
     methods: {
         validateField,

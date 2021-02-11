@@ -13,12 +13,26 @@ export const phone = {
   error: 'Please enter valid phone number',
 };
 
+export const maxValue = {
+  rule(param, value) { return Number(value) <= Number(param) },
+  error(param) { return `Number should be less than ${param}` }
+};
+
 export const validate = (rule, value) => {
   let error = '';
 
   rule.forEach(ruleItem => {
+    let rule = ruleItem;
+    let param = '';
+  
+    if (ruleItem.includes('|')) {
+      rule = ruleItem.split('|')[0];
+      param = ruleItem.split('|')[1];
+    }
+
+
     if (!error) {
-      switch (ruleItem) {
+      switch (rule) {
         case 'required': {
           if (!required.rule.test(value)) error = required.error;
           break;
@@ -31,6 +45,11 @@ export const validate = (rule, value) => {
     
         case 'phone': {
           if (!phone.rule.test(value)) error = phone.error;
+          break;
+        }
+
+        case 'maxValue': {
+          if(!maxValue.rule(param, value)) error = maxValue.error(param);
           break;
         }
     
