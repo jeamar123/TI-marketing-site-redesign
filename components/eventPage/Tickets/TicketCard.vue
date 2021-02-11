@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { validateField, clearError } from '~/assets/js/validation';
+import { validateField, validateForm } from '~/assets/js/validation';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
@@ -89,10 +89,11 @@ export default {
   },
   methods: {
     validateField,
-    clearError,
+    validateForm,
     inputHandler(field) {
-      this.clearError(field, this.form);
-      this.$emit('input', this.form[field].value);
+      const isValid = this.validateForm(this.form);
+
+      this.$emit('input', isValid ? this.form[field].value : 0);
     },
   },
 };
