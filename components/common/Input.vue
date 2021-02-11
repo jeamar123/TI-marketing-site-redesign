@@ -109,7 +109,7 @@ export default {
 
       &::placeholder {
         color: transparent;
-        transition: color 0.3s;
+        transition: color 0.2s;
       }
     }
 
@@ -136,7 +136,7 @@ export default {
     top: 7px;
     color: $white;
     background-color: $black;
-    transition: top 0.3s, opacity 0.3s, background-color 0.3s;
+    transition: top 0.2s, opacity 0.2s, background-color 0.2s;
   }
 
   &--error {
@@ -156,7 +156,7 @@ export default {
   &__control:focus ~ #{$self}__label {
     top: -11px;
     opacity: 1;
-    transition: top 0.3s 0.1s, opacity 0.4s, background-color 0.3s 0.1s;
+    transition: top 0.2s 0.1s, opacity 0.3s, background-color 0.2s 0.1s;
   }
 }
 </style>

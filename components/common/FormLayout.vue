@@ -58,6 +58,7 @@ export default {
 
     &__info-wrapper {
       margin-right: 24px;
+      max-width: 50%;
     }
 
     &__text {

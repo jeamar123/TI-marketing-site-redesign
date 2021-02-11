@@ -1,8 +1,8 @@
 <template>
   <GenericSection class="checkout">
-    <div class="checkout__tickets">
+    <div v-if="isQuantityReady" class="checkout__tickets">
         <TicketCard
-            v-for="ticket in tickets"
+            v-for="ticket in ticketsTemp"
             :key="ticket.type"
             v-model="ticketsQuantity[ticket.type.toLowerCase()].quantity"
             :ticket="ticket"
@@ -58,7 +58,13 @@ import TicketCard from '~/components/eventPage/Tickets/TicketCard';
 import FormLayout from '~/components/common/FormLayout';
 
 export default {
-    name: 'Checkout',
+    name: 'Purchase',
+    props: {
+        tickets: {
+          type: Array,
+          default: () => [],
+        },
+    },
     components: {
         GenericSection,
         Heading,
@@ -67,6 +73,8 @@ export default {
         TicketCard,
         FormLayout,
     },
+    // TODO: CHANGE ticketsTemp to tickets EVERYWHERE.
+    // ticketsTemp are here to show free tickets which are not in api currently
     data: () => ({
         form: {
             name: {
@@ -82,40 +90,24 @@ export default {
                 label: 'Email',
             },
         },
-        tickets: [
-            {
-                type: 'Free',
-                price: 0,
-                access: [ 'Access to live conference' ]
-            },
-            {
-                type: 'Basic',
-                price: 10,
-                access: [ 'Access to live conference', 'Access to record of talks' ]
-            },
-            {
-                type: 'Premium',
-                price: 30,
-                access: [ 'Access to offline conference', 'Access to live conference', 'Access to record of talks' ]
-            }
-        ],
-        // write function to form this object dynamically from available types of tickets
-        ticketsQuantity: {
-            free: {
-                price: 0,
-                quantity: 0,
-            },
-            basic: {
-                price: 10,
-                quantity: 0,
-            },
-            premium: {
-                price: 30,
-                quantity: 0,
-            },
-        },
+        ticketsQuantity: {},
+        isQuantityReady: false,
     }),
     computed: {
+        ticketsTemp() {
+            return [
+                {
+                    features: [
+                        'Access to live conference without ability to chat',
+                    ],
+                    title: 'Free',
+                    type: 'free',
+                    price: 0,
+                    max: 20,
+                },
+                ...this.tickets,
+            ];
+        },
         totalPrice() {
             return Object.values(this.ticketsQuantity).reduce((acc, cur) => {
                 return acc = acc + (cur.price * Number(cur.quantity));
@@ -134,10 +126,28 @@ export default {
             return Object.keys(this.form);
         },
     },
+    // TEMPORARY
+    watch: {
+        ticketsTemp(val) {
+            this.ticketsQuantity = this.getTicketsQuantity();
+            this.isQuantityReady = true;
+        }
+    },
     methods: {
         validateField,
         validateForm,
         clearError,
+        getTicketsQuantity() {
+            return this.ticketsTemp.reduce((acc, cur) => {
+                return {
+                    ...acc,
+                    [cur.type]: {
+                        price: cur.price,
+                        quantity: 0,
+                    }
+                };
+            }, {});
+        },
         getQuantityString(ticketType, ticketObj) {
             return `${ticketObj.quantity}
                 ${ticketType.toLowerCase()}
@@ -148,7 +158,11 @@ export default {
 
             if (!isValid) return;
 
-            alert('pay');
+            this.$emit('pay-for-tickets', {
+                totalPrice: this.totalPrice,
+                quantityArr: this.quantityArr,
+                email: this.form.email.value,
+            })
         },
     },
 }

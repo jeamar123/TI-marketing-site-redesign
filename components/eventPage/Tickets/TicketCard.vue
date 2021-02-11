@@ -9,15 +9,15 @@
       color="white"
       class="ticket__heading"
     >
-      {{ticket.type}} ticket
+      {{ticket.title}} ticket
     </Heading>
     <dl class="ticket__access">
       <dt class="ticket__access-desc">
         This pass includes access to:
       </dt>
       <dd
-        v-for="item in ticket.access"
-        :key="item.vueKey"
+        v-for="item in ticket.features"
+        :key="item"
         class="ticket__access-item"
       >
         {{ item }}
@@ -35,6 +35,7 @@
       v-else
       is-smaller
       class="ticket__get"
+      @click="$router.push(`${$route.params.event}/checkout`)"
     >
       get tickets
     </Button>
@@ -126,10 +127,11 @@ export default {
 
   &__heading {
     text-align: center !important;
+    margin-bottom: 8px;
   }
 
   &__access {
-    margin-bottom: 18px;
+    margin-bottom: 32px;
   }
 
   &__access-item {
