@@ -252,6 +252,7 @@ export default {
 
   @media (min-width: $media-sm) {
     justify-content: flex-start;
+    padding: 16px 24px;
 
     &__link {
       order: 2;

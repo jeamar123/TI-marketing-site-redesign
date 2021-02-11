@@ -14,6 +14,9 @@ export default {
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap' }
     ],
+    script: [
+      { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true }
+    ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)

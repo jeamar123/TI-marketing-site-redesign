@@ -5,7 +5,7 @@
       {{ data.name }}
     </h1>
     <p class="event-hero__short-desk">
-      {{ data.explaining }}
+      Interactive IT Security Conference
     </p>
     <div class="event-her__stripes-wrapper">
       <div class="event-hero__stripe">
@@ -31,7 +31,7 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.location }}
+        Exploit Virtual Conference Platform
       </div>
       <div class="event-hero__stripe">
         <svg-icon
@@ -56,7 +56,7 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.location }}
+        Exploit Virtual Conference Platform
       </div>
       <div class="event-hero__stripe">
         <svg-icon
@@ -81,11 +81,11 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.location }}
+        Exploit Virtual Conference Platform
       </div>
     </div>
     <p class="event-hero__description">
-      {{ data.description }}
+      Please join us for ExploitCon, an exclusive one-day conference focused on providing the latest and greatest on cybersecurity.
     </p>
     <Button class="event-hero__register">
       register now

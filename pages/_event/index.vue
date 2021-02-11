@@ -50,6 +50,10 @@ export default {
         router.push('/');
       })
   },
+  mounted() {
+    this.$store.dispatch('crud/GET', { route: `public/event/${this.$route.params.event}` })
+      .then(data => { console.log(data) });
+  },
   data: () => ({
     eventData,
   }),
