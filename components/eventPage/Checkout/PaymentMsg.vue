@@ -52,10 +52,11 @@ export default {
 
   &__link {
     color: $accent-blue;
+    text-decoration: underline;
     transition: text-decoration 0.3s, opacity 0.3s;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &:active {
