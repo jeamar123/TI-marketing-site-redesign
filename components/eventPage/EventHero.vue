@@ -7,7 +7,7 @@
     <p class="event-hero__short-desk">
       Interactive IT Security Conference
     </p>
-    <div class="event-her__stripes-wrapper">
+    <div class="event-hero__stripes-wrapper">
       <div class="event-hero__stripe">
         <svg-icon
           name="calendar"
@@ -87,7 +87,10 @@
     <p class="event-hero__description">
       Please join us for ExploitCon, an exclusive one-day conference focused on providing the latest and greatest on cybersecurity.
     </p>
-    <Button class="event-hero__register">
+    <Button
+      class="event-hero__register"
+      @click="$router.push(`/${$route.params.event}/join`)"
+    >
       register now
     </Button>
     </div>

@@ -8,14 +8,12 @@ export const actions = {
 
         this.$axios
           .$get(params.route, { headers: { Authorization: token } })
-          .then(response => response.data)
-          .catch(err => err.response);
+          .then(response => response.data);
       });
     } else {
       return this.$axios
         .$get(params.route)
-        .then(response => response.data)
-        .catch(err => err.response);
+        .then(response => response.data);
     }
   },
 
@@ -31,14 +29,12 @@ export const actions = {
               'Content-Type': 'application/json',
             },
           })
-          .then(response => response.data)
-          .catch(err => err.response);
+          .then(response => response.data);
       });
     } else {
       return this.$axios
         .$post(params.route, params.data)
-        .then(response => response.data)
-        .catch(err => err.response);
+        .then(response => response.data);
     }
   },
 };
