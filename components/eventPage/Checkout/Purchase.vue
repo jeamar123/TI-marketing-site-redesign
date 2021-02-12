@@ -126,7 +126,7 @@ export default {
             return Object.keys(this.form);
         },
     },
-    mounted() {
+    created() {
         this.ticketsQuantity = this.getTicketsQuantity();
         this.isQuantityReady = true;
     },

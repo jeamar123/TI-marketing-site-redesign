@@ -28,7 +28,12 @@ import ThankYou from './ThankYou';
 
 export default {
   name: 'Checkout',
-  props: {},
+  props: {
+    event: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   components: {
     Purchase,
     ThankYou,
@@ -37,7 +42,6 @@ export default {
   data: () => ({
     areTicketsPurchased: false,
     infoMessage: '',
-    event: {},
     codes: [
       {
           type: 'free',
@@ -56,10 +60,6 @@ export default {
     isPaymentCancelled() {
       return !!this.$route.query.cancel;
     },
-  },
-  async fetch() {
-    const events = await this.GET({ route: '/admin/event/upcoming' }).then(data => data);
-    this.event = events.find(item => item.id === this.$route.params.event);
   },
   created() {
     this.infoMessage = this.getInfoMessage();

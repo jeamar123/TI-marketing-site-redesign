@@ -110,6 +110,8 @@ export default {
 .footer {
   background-color: $black;
   padding-top: 80px;
+  position: relative;
+  z-index: 3;
 
   &__wrapper {
     padding-left: 16px;
