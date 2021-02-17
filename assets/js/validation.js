@@ -9,7 +9,7 @@ export const email = {
 };
 
 export const phone = {
-  rule: /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
+  rule: /^\d{10,12}$/,
   error: 'Please enter valid phone number',
 };
 
@@ -67,7 +67,7 @@ export const validate = (rule, value) => {
 export const validateField = (field, formObj) => {
   clearError(field, formObj);
 
-  formObj[field].error = validate(formObj[field].rule, formObj[field].value);
+  formObj[field].error = validate(formObj[field].rules, formObj[field].value);
 } 
 
 export const validateForm = (formObj) => {
@@ -81,7 +81,7 @@ export const validateForm = (formObj) => {
 }
 
 export const clearError = (field, formObj) => {
-  formObj[field].error = '';
+  if(formObj[field].error) formObj[field].error = '';
 }
 
 export const clearAllErrors = (formObj) => {
