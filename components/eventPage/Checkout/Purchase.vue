@@ -80,13 +80,13 @@ export default {
             name: {
                 value: '',
                 error: '',
-                rule: ['required'],
+                rules: ['required'],
                 label: 'Name',
             },
             email: {
                 value: '',
                 error: '',
-                rule: ['required', 'email'],
+                rules: ['required', 'email'],
                 label: 'Email',
             },
         },

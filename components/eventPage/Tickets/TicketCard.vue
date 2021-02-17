@@ -76,7 +76,7 @@ export default {
         quantity: {
           value: '0',
           error: '',
-          rule: [`maxValue|${this.ticket.max}`],
+          rules: [`maxValue|${this.ticket.max}`],
           label: 'Tickets quantity',
         },
       },

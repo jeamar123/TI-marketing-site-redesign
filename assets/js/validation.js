@@ -18,10 +18,10 @@ export const maxValue = {
   error(param) { return `Number should be less than ${param}` }
 };
 
-export const validate = (rule, value) => {
+export const validate = (rules, value) => {
   let error = '';
 
-  rule.forEach(ruleItem => {
+  rules.forEach(ruleItem => {
     let rule = ruleItem;
     let param = '';
   
