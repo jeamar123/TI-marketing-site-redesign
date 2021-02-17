@@ -8,7 +8,11 @@
         <p class="form-layout__text">
           If you already have an account, you can 
           <router-link to="/login" class="form-layout__link"> login</router-link>.
-          Also you can use social media for sign up to conference
+          Also you can use social media for sign up to conference.
+          <br/>
+          By clicking Sign In, you are indicating that you have read and acknowledge the
+          <router-link to="/" class="form-layout__link">Terms of Service</router-link> and
+          <router-link to="/" class="form-layout__link">Privacy Notice</router-link>.
         </p>
         <ul class="sign-in__social">
           <li class="sign-in__social-item">
