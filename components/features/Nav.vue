@@ -28,7 +28,11 @@
               {{ link.name }}
             </router-link>
           </nav>
-          <Button is-smaller class="navigation__login-sm">
+          <Button
+            is-smaller
+            class="navigation__login-sm"
+            @click="$router.push('/login')"
+          >
             login
           </Button>
         </div>
@@ -44,7 +48,11 @@
           info@arctic-con.com
         </a>
       </div>
-      <Button is-smaller class="navigation__login-lg">
+      <Button
+        is-smaller
+        class="navigation__login-lg"
+        @click="$router.push('/login')"
+      >
         login
       </Button>
     </div>
