@@ -9,6 +9,9 @@
           If you haven’t account, you can 
           <router-link to="/sign-in" class="form-layout__link"> create it</router-link>.
           Also you can use social media for sign up to conference
+          <br />
+          If you forgot your password, here you can
+          <router-link to="/forgot-password" class="form-layout__link">change it</router-link>.
         </p>
         <ul class="login__social">
           <li class="login__social-item">

@@ -18,6 +18,11 @@ export const maxValue = {
   error(param) { return `Number should be less than ${param}` }
 };
 
+export const password = {
+  rule: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+  error: 'Password must be 8 characters long and contain an uppercase, lowercase, digit, and special character',
+};
+
 export const validate = (rules, value) => {
   let error = '';
 
@@ -49,7 +54,12 @@ export const validate = (rules, value) => {
         }
 
         case 'maxValue': {
-          if(!maxValue.rule(param, value)) error = maxValue.error(param);
+          if (!maxValue.rule(param, value)) error = maxValue.error(param);
+          break;
+        }
+
+        case 'password': {
+          if (!password.rule.test(value)) error = password.error;
           break;
         }
     

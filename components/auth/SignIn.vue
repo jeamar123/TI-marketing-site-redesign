@@ -79,12 +79,16 @@
             v-for="(fieldProps, field) in form"
             :key="field"
             v-model="fieldProps.value"
+            :type="fieldProps.rules.includes('password') ? 'password' : 'text'"
             :name="field"
             :label="fieldProps.label"
             :error="fieldProps.error"
             @blur="validateField(field, form)"
             @input="clearError(field, form)"
           />
+          <div v-if="!doPasswordsMatch" class="sign-in__pass-err">
+            Passwords do not match
+          </div>
           <Button class="form-layout__button">
             sign in
           </Button>
@@ -113,6 +117,7 @@ export default {
   },
   components: {},
   data: () => ({
+    doPasswordsMatch: true,
     form: {
       name: {
         value: '',
@@ -129,13 +134,13 @@ export default {
       password: {
         value: '',
         error: '',
-        rules: ['required'],
+        rules: ['required', 'password'],
         label: 'Password',
       },
       passwordConfirmed: {
         value: '',
         error: '',
-        rules: ['required'],
+        rules: ['required', 'password'],
         label: 'Confirm Password',
       },
     },
@@ -145,7 +150,13 @@ export default {
     validateField,
     validateForm,
     clearError,
-    signIn() {},
+    signIn() {
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      this.doPasswordsMatch = this.form.password.value === this.form.passwordConfirmed.value;
+      if (!this.doPasswordsMatch) return;
+    },
   },
 };
 </script>
@@ -183,6 +194,12 @@ export default {
     &:active {
       opacity: 0.6;
     }
+  }
+
+  &__pass-err {
+    color: $error-red;
+    margin-top: -24px;
+    margin-bottom: 16px;
   }
 
   @media (min-width: $media-sm) {
