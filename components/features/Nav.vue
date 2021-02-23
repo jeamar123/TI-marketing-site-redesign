@@ -30,7 +30,7 @@
           </nav>
           <div class="navigation__login-wrapper-sm">
             <Button
-              v-if="userName"
+              v-if="!userName"
               is-smaller
               class="navigation__login-sm"
               @click="$router.push('/login')"
@@ -53,7 +53,7 @@
         </a>
       </div>
       <Button
-        v-if="userName"
+        v-if="!userName"
         is-smaller
         class="navigation__login-lg"
         @click="$router.push('/login')"
@@ -315,6 +315,10 @@ export default {
     &__phone {
       font-weight: bold;
       margin-bottom: 8px;
+    }
+
+    &__email {
+      width: max-content;
     }
 
     &__navigation {

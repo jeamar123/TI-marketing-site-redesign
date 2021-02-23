@@ -144,8 +144,8 @@ export default {
       if (!isValid) return;
 
       this.signIn(transformForm(this.form))
-        .then(result => {
-          console.log(result);
+        .then(() => {
+          this.$router.go(-1);
         })
         .catch(err => {
           console.log(err);
