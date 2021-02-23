@@ -6,7 +6,7 @@ export const actions = {
       return Auth.currentSession().then(user => {
         const token = user.idToken.jwtToken;
 
-        this.$axios
+        return this.$axios
           .$get(params.route, { headers: { Authorization: token } })
           .then(response => response.data);
       });

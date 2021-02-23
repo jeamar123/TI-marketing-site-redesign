@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import GenericSection from '~/components/common/GenericSection';
@@ -130,11 +130,19 @@ export default {
       },
     },
   }),
-  computed: {},
+  computed: {
+    ...mapGetters({
+      userName: 'auth/getUserName',
+    }),
+  },
   methods: {
     ...mapActions({
       signIn: 'auth/signIn',
+      GET: 'crud/GET',
     }),
+    ...mapMutations([
+      'setUser',
+    ]),
     validateField,
     validateForm,
     clearError,
@@ -145,6 +153,13 @@ export default {
 
       this.signIn(transformForm(this.form))
         .then(() => {
+          this.GET({
+            authed: true,
+            route: `/profile/${this.userName}`
+          }).then(result => {
+            this.setUser(result);
+          });
+
           this.$router.go(-1);
         })
         .catch(err => {

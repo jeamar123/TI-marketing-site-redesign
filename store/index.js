@@ -6,4 +6,15 @@ const baseUrl = development
 
 export const state = () => ({
   baseUrl,
+  user: {},
 });
+
+export const getters = {
+  getUser: state => state.user,
+};
+
+export const mutations = {
+  setUser(state, payload) {
+    state.user = payload;
+  },
+};

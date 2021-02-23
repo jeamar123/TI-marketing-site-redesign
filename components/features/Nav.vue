@@ -60,7 +60,7 @@
       >
         login
       </Button>
-      <UserMenu v-else :user-name="userName" />
+      <UserMenu v-else :user-name="displayUserName" />
     </div>
   </div>
 </template>
@@ -98,7 +98,13 @@ export default {
   computed: {
     ...mapGetters({
       userName: 'auth/getUserName',
+      user: 'getUser',
     }),
+    displayUserName() {
+      return this.user.first_name
+        || this.user.display_name
+        || this.userName;
+    },
     menuItems() {
       return this.$route.params.event
         ? this.getMenuItems(this.eventNav)
