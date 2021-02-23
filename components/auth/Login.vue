@@ -78,6 +78,7 @@
             v-for="(fieldProps, field) in form"
             :key="field"
             v-model="fieldProps.value"
+            :type="field === 'password' ? 'password' : 'text'"
             :name="field"
             :label="fieldProps.label"
             :error="fieldProps.error"
@@ -94,6 +95,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import GenericSection from '~/components/common/GenericSection';
 import FormLayout from '~/components/common/FormLayout';
@@ -113,11 +116,11 @@ export default {
   components: {},
   data: () => ({
     form: {
-      email: {
+      username: {
         value: '',
         error: '',
-        rules: ['required', 'email'],
-        label: 'Email',
+        rules: ['required'],
+        label: 'User Name',
       },
       password: {
         value: '',
@@ -129,9 +132,25 @@ export default {
   }),
   computed: {},
   methods: {
+    ...mapActions({
+      signIn: 'auth/signIn',
+    }),
     validateField,
     validateForm,
     clearError,
+    logIn() {
+      const isValid = this.validateForm(this.form);
+
+      if (!isValid) return;
+
+      this.signIn(transformForm(this.form))
+        .then(result => {
+          console.log(result);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>

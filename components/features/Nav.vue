@@ -28,13 +28,17 @@
               {{ link.name }}
             </router-link>
           </nav>
-          <Button
-            is-smaller
-            class="navigation__login-sm"
-            @click="$router.push('/login')"
-          >
-            login
-          </Button>
+          <div class="navigation__login-wrapper-sm">
+            <Button
+              v-if="userName"
+              is-smaller
+              class="navigation__login-sm"
+              @click="$router.push('/login')"
+            >
+              login
+            </Button>
+            <UserMenu v-else :user-name="userName" />
+          </div>
         </div>
       </div>
       </transition>
@@ -49,24 +53,29 @@
         </a>
       </div>
       <Button
+        v-if="userName"
         is-smaller
         class="navigation__login-lg"
         @click="$router.push('/login')"
       >
         login
       </Button>
+      <UserMenu v-else :user-name="userName" />
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Button from '~/components/common/Button';
+import UserMenu from '~/components/nav/UserMenu';
 
 export default {
   name: 'Navigation',
   props: {},
   components: {
     Button,
+    UserMenu,
   },
   data: () => ({
     isMobNavOpened: false,
@@ -87,6 +96,9 @@ export default {
     ],
   }),
   computed: {
+    ...mapGetters({
+      userName: 'auth/getUserName',
+    }),
     menuItems() {
       return this.$route.params.event
         ? this.getMenuItems(this.eventNav)
@@ -283,14 +295,12 @@ export default {
       padding: 0 24px;
     }
 
-    &__login {
-      &-sm {
-        display: none;
-      }
+    &__login-wrapper-sm {
+      display: none;
+    }
 
-      &-lg {
-        width: 172px;
-      }
+    &__login-lg {
+      width: 172px;
     }
 
     &__contacts {
