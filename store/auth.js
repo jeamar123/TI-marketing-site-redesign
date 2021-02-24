@@ -35,6 +35,7 @@ export const actions = {
                     resolve(user);
                 })
                 .catch(err => {
+                    commit('setUserName', '');
                     localStorage.clear();
                     reject(err);
                 });
@@ -141,6 +142,7 @@ export const actions = {
                     resolve(user.idToken.payload['cognito:username']);
                 })
                 .catch(err => {
+                    commit('setUserName', '');
                     reject(err);
                 });
         });
