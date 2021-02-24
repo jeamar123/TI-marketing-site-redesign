@@ -133,10 +133,11 @@ export const actions = {
                 });
         });
     },
-    getCurrentUser: function(state, creds){
+    getCurrentUser: function({ commit }, creds){
         return new Promise((resolve, reject) => {
             Auth.currentSession()
                 .then(user => {
+                    commit('setUserName', user.idToken.payload['cognito:username']);
                     resolve(user.idToken.payload['cognito:username']);
                 })
                 .catch(err => {
