@@ -1,7 +1,13 @@
 <template>
   <GenericSection class="forgot-pass">
-    <SendCode v-if="!isCodeSent" />
-    <NewPassword v-else />
+    <SendCode
+      v-if="!isCodeSent"
+      @code-sent="codeSentHandler"
+    />
+    <NewPassword
+      v-else
+      :username="username"
+    />
   </GenericSection>
 </template>
 
@@ -20,9 +26,15 @@ export default {
   },
   data: () => ({
     isCodeSent: false,
+    username: '',
   }),
   computed: {},
-  methods: {},
+  methods: {
+    codeSentHandler(username) {
+      this.isCodeSent = true;
+      this.username = username;
+    },
+  },
 };
 </script>
 

@@ -9,9 +9,6 @@
           If you haven’t account, you can 
           <router-link to="/sign-in" class="form-layout__link"> create it</router-link>.
           Also you can use social media for sign up to conference
-          <br />
-          If you forgot your password, here you can
-          <router-link to="/forgot-password" class="form-layout__link">change it</router-link>.
         </p>
         <ul class="login__social">
           <li class="login__social-item">
@@ -74,6 +71,28 @@
       </template>
       <template #form>
         <form @submit.prevent="logIn">
+          <transition name="fade">
+            <Error v-if="hasError" class="login__error">
+              <template #header>
+                {{ errorHeader }}
+              </template>
+              <template #text>
+                <template v-if="isWrongPass">
+                  Double-check your username and password. You may have used social media to login
+                </template>
+                <template v-else-if="isUnconfirmed">
+                  Check your email for verification link.
+                  <button class="error__link" @click="resendVerification">Click here</button>, if you haven’t verification link.
+                </template>
+                <template v-else-if="isUnknownErr || isEmailError">
+                  Please try again or contact us at
+                  <a :href="'mailto:info@exploitcon.com'" class="error__link">
+                    info@exploitcon.com
+                  </a>
+                </template>
+              </template>
+            </Error>
+          </transition>
           <Input
             v-for="(fieldProps, field) in form"
             :key="field"
@@ -88,6 +107,7 @@
           <Button class="form-layout__button">
             login
           </Button>
+          <router-link to="/forgot-password" class="form-layout__link">Forgot a password?</router-link>
         </form>
       </template>
     </FormLayout>
@@ -103,6 +123,7 @@ import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
 
 export default {
   name: 'Login',
@@ -112,6 +133,7 @@ export default {
     Heading,
     Input,
     Button,
+    Error,
   },
   components: {},
   data: () => ({
@@ -129,15 +151,31 @@ export default {
         label: 'Password',
       },
     },
+    hasError: false,
+    isWrongPass: false,
+    isUnconfirmed: false,
+    isUnknownErr: false,
+    isEmailError: false,
   }),
   computed: {
     ...mapGetters({
       userName: 'auth/getUserName',
+      backPath: 'getBackPath',
     }),
+    errorHeader() {
+      let text = 'Seems there was an issue';
+
+      if (this.isWrongPass) text = 'Incorrect username or password';
+      if (this.isUnconfirmed) text = 'Account hasn’t been confirmed';
+      if (this.isEmailError) text = 'Seems there was an issue resending verification link';
+
+      return text;
+    },
   },
   methods: {
     ...mapActions({
       signIn: 'auth/signIn',
+      resendEmail: 'auth/resendSignUp',
       GET: 'crud/GET',
     }),
     ...mapMutations([
@@ -153,18 +191,42 @@ export default {
 
       this.signIn(transformForm(this.form))
         .then(() => {
+          this.clearErrors();
           this.GET({
             authed: true,
             route: `/profile/${this.userName}`
           }).then(result => {
             this.setUser(result);
+            this.$router.push(this.backPath);
           });
-
-          this.$router.go(-1);
         })
         .catch(err => {
-          console.log(err);
+          if (err.code) {
+            if (err.code === "NotAuthorizedException") this.isWrongPass = true;
+            else if (err.code === "UserNotConfirmedException") this.isUnconfirmed = true;
+          } else {
+            this.isUnknownErr = true;
+          }
+
+          this.hasError = true;
         });
+    },
+    clearErrors() {
+      if (this.hasError) {
+        this.hasError = false;
+
+        if (this.isWrongPass) this.isWrongPass = false;
+        if (this.isUnconfirmed) this.isUnconfirmed = false;
+        if (this.isUnknownErr) this.isUnknownErr = false;
+        if (this.isEmailError) this.isEmailError = false;
+      }
+    },
+    resendVerification() {
+      this.clearErrors();
+      this.resendEmail().catch(() => {
+        this.hasError = true;
+        this.isEmailError = true;
+      });
     },
   },
 };
@@ -203,6 +265,10 @@ export default {
     &:active {
       opacity: 0.6;
     }
+  }
+
+  &__error {
+    margin-bottom: 40px;
   }
 
   @media (min-width: $media-sm) {

@@ -7,14 +7,19 @@ const baseUrl = development
 export const state = () => ({
   baseUrl,
   user: {},
+  backPath: '',
 });
 
 export const getters = {
   getUser: state => state.user,
+  getBackPath: state => state.backPath,
 };
 
 export const mutations = {
   setUser(state, payload) {
     state.user = payload;
+  },
+  setBackPath(state, payload) {
+    state.backPath = payload;
   },
 };

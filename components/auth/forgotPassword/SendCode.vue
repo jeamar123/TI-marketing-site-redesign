@@ -9,6 +9,22 @@
       </p>
     </template>
     <template #form>
+      <transition name="fade">
+        <Error v-if="hasError" class="send-code__error">
+          <template #header>
+            Seems there was an issue sending your code
+          </template>
+          <template #text>
+            <p v-if="errorMsg">
+              {{ errorMsg }}
+            </p>
+            Please try again later or contact us at
+            <a href="'mailto:info@arctic-con.com" class="form-layout__link">
+              info@arctic-con.com
+            </a>
+          </template>
+        </Error>
+      </transition>
       <form @submit.prevent="sendCode">
         <Input
           v-for="(fieldObj, field) in form"
@@ -29,11 +45,13 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
 
 export default {
   name: 'SendCode',
@@ -43,27 +61,55 @@ export default {
     Heading,
     Input,
     Button,
+    Error,
   },
   data: () => ({
     form: {
-      email: {
+      username: {
         value: '',
         error: '',
-        rules: ['required', 'email'],
-        label: 'Email',
+        rules: ['required'],
+        label: 'Username',
       },
     },
+    hasError: false,
+    errorMsg: '',
   }),
   computed: {},
   methods: {
     validateField,
     validateForm,
     clearError,
-    sendCode() {},
+    ...mapActions({
+      sendPassCode: 'auth/forgotPassword',
+    }),
+    sendCode() {
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      this.clearErrors();
+      this.sendPassCode(this.form.username.value)
+        .then(() => {
+          this.$emit('code-sent', this.form.username.value);
+        }).catch((err) => {
+          this.hasError = true;
+          this.errorMsg = err.message || '';
+        });
+    },
+    clearErrors() {
+      if (this.hasError) this.hasError = false;
+      if (this.errorMsg) this.errorMsg ='';
+    },
   },
 };
 </script>
 
 <style lang="scss">
 @import '~/assets/scss/variables';
+
+.send-code {
+  &__error {
+    margin-bottom: 40px;
+  }
+}
 </style>

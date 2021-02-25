@@ -74,37 +74,72 @@
         </ul>
       </template>
       <template #form>
-        <form @submit.prevent="signIn">
-          <Input
-            v-for="(fieldProps, field) in form"
-            :key="field"
-            v-model="fieldProps.value"
-            :type="fieldProps.rules.includes('password') ? 'password' : 'text'"
-            :name="field"
-            :label="fieldProps.label"
-            :error="fieldProps.error"
-            @blur="validateField(field, form)"
-            @input="clearError(field, form)"
-          />
-          <div v-if="!doPasswordsMatch" class="sign-in__pass-err">
-            Passwords do not match
-          </div>
-          <Button class="form-layout__button">
-            sign in
-          </Button>
-        </form>
+        <div v-if="isSignInSuccessfull" class="sign-in__success">
+          <Heading type="h4" color="white">
+            Sign In was successfull!
+          </Heading>
+          <p>
+            Please check your email for a verification link
+          </p>
+          <p>
+            <router-link to="/" class="form-layout__link">
+              Go to main page
+            </router-link>
+          </p>
+          <p>
+            <router-link to="/login" class="form-layout__link">
+              Login</router-link> with your created account
+          </p>
+        </div>
+        <template v-else>
+          <transition name="fade">
+            <Error v-if="hasError" class="sign-in__error">
+              <template #header>
+                {{ errorMsg || 'Seems there was an issue with your sign up' }}
+              </template>
+              <template #text>
+                Please try again later or contact us at
+                <a href="mailto:info@exploitcon.come" class="form-layout__link">
+                  info@exploitcon.com
+                </a>
+              </template>
+            </Error>
+          </transition>
+          <form @submit.prevent="signIn">
+            <Input
+              v-for="(fieldProps, field) in form"
+              :key="field"
+              v-model="fieldProps.value"
+              :type="fieldProps.rules.includes('password') ? 'password' : 'text'"
+              :name="field"
+              :label="fieldProps.label"
+              :error="fieldProps.error"
+              @blur="validateField(field, form)"
+              @input="clearError(field, form)"
+            />
+            <div v-if="!doPasswordsMatch" class="sign-in__pass-err">
+              Passwords do not match
+            </div>
+            <Button class="form-layout__button">
+              sign in
+            </Button>
+          </form>
+        </template>
       </template>
     </FormLayout>
   </GenericSection>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
 import GenericSection from '~/components/common/GenericSection';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
 
 export default {
   name: 'SignIn',
@@ -114,12 +149,16 @@ export default {
     Heading,
     Input,
     Button,
+    Error,
   },
   components: {},
   data: () => ({
     doPasswordsMatch: true,
+    isSignInSuccessfull: false,
+    hasError: false,
+    errorMsg: '',
     form: {
-      name: {
+      username: {
         value: '',
         error: '',
         rules: ['required'],
@@ -147,6 +186,10 @@ export default {
   }),
   computed: {},
   methods: {
+    ...mapActions({
+      register: 'auth/signUp',
+    }),
+    transformForm,
     validateField,
     validateForm,
     clearError,
@@ -156,6 +199,21 @@ export default {
 
       this.doPasswordsMatch = this.form.password.value === this.form.passwordConfirmed.value;
       if (!this.doPasswordsMatch) return;
+
+      const creds = this.transformForm(this.form);
+      delete creds.passwordConfirmed;
+
+      this.register(creds).then(() => {
+        this.clearErrors();
+        this.isSignInSuccessfull = true;
+      }).catch((err) => {
+        this.hasError = true;
+        this.errorMsg = err.message || '';
+      });
+    },
+    clearErrors() {
+      if (this.hasError) this.hasError = false;
+      if (this.errorMsg) this.errorMsg = '';
     },
   },
 };
@@ -200,6 +258,19 @@ export default {
     color: $error-red;
     margin-top: -24px;
     margin-bottom: 16px;
+  }
+
+  &__success {
+    padding: 0 52px;
+    text-align: center;
+
+    .heading {
+      text-align: center !important;
+    }
+  }
+
+  &__error {
+    margin-bottom: 40px;
   }
 
   @media (min-width: $media-sm) {
