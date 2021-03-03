@@ -7,7 +7,7 @@
     <Villages :data="eventData.villages" />
     <Volunteering />
     <Sponsors :data="eventData.sponsors" />
-    <Tickets :data="eventData.tickets" />
+    <Tickets :tickets="cityData.ticket_type" />
     <Contacts />
   </div>
 </template>
