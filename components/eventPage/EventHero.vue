@@ -2,7 +2,7 @@
   <div class="event-hero">
     <div class="event-hero__wrapper">
     <h1 class="event-hero__heading">
-      {{ data.name }}
+      {{ event.name }}
     </h1>
     <p class="event-hero__short-desk">
       Interactive IT Security Conference
@@ -16,7 +16,7 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.time }}
+        {{ eventTime }}
         <svg-icon
           name="arrow"
           width="26"
@@ -41,7 +41,7 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.time }}
+        {{ eventTime }}
         <svg-icon
           name="arrow"
           width="26"
@@ -66,7 +66,7 @@
           fill="#0B0A14"
           class="event-hero__icon"
         />
-        {{ data.time }}
+        {{ eventTime }}
         <svg-icon
           name="arrow"
           width="26"
@@ -98,12 +98,13 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Button from '~/components/common/Button';
 
 export default {
   name: 'EventPageHero',
   props: {
-    data: {
+    event: {
       type: Object,
       default: () => ({}),
     },
@@ -112,7 +113,23 @@ export default {
     Button,
   },
   data: () => ({}),
-  computed: {},
+  computed: {
+    startTime() {
+      return moment(this.event.start).format('HH:MM a');
+    },
+    endTime() {
+      return moment(this.event.end).format('HH:MM a');
+    },
+    date() {
+      return moment(this.event.end).format('MMM DD');
+    },
+    year() {
+      return moment(this.event.end).format('YYYY');
+    },
+    eventTime() {
+      return `${this.startTime} - ${this.endTime}, ${this.date}, ${this.year}`;
+    },
+  },
   methods: {},
 };
 </script>
@@ -141,7 +158,7 @@ export default {
     font-weight: bold;
     font-size: 48px;
     line-height: 65px;
-    padding-right: 60px;
+    // padding-right: 60px;
   }
 
   &__short-desk {
@@ -205,9 +222,9 @@ export default {
       margin-bottom: 460px;
     }
 
-    &__heading {
-      padding-right: 30%;
-    }
+    // &__heading {
+    //   padding-right: 30%;
+    // }
 
     &__stripe {
       &:nth-child(2) {
@@ -231,7 +248,7 @@ export default {
     }
 
     &__heading {
-      padding-right: 80%;
+      // padding-right: 80%;
       font-size: 64px;
       line-height: 87px;
     }
@@ -277,9 +294,9 @@ export default {
       flex-flow: column;
     }
 
-    &__heading {
-      padding-right: 0;
-    }
+    // &__heading {
+    //   padding-right: 0;
+    // }
 
     &__short-desk {
       margin-bottom: 0;

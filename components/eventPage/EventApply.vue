@@ -7,7 +7,11 @@
     is-reverse
     class="apply"
   >
-    <Button color="black" class="apply__button">
+    <Button
+      color="black"
+      class="apply__button"
+      @click="$router.push(`/${$route.params.event}/cfp`)"
+    >
       apply
     </Button>
   </TextSection>

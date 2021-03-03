@@ -123,7 +123,7 @@ export default {
     }
 
     &__heading {
-      flex-basis: 30%;
+      flex-basis: 40%;
       margin-right: 10%;
     }
 

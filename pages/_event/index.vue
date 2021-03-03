@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Hero :data="eventData.hero" />
-    <About :data="eventData.about" />
+    <Hero :event="cityData" />
+    <About :name="cityData.name" :description="cityData.description" />
     <Apply :data="eventData.apply" />
     <Schedule :data="eventData.schedule" />
     <Villages :data="eventData.villages" />
@@ -38,21 +38,18 @@ export default {
     Tickets,
     Contacts,
   },
-  asyncData({ store, router }) {
+  asyncData({ store, route }) {
     let cityData = null;
-// use store to get city for route 
-// or get all events here than search for needed one and send event
-// or if there's no data in store about event, get all events and search, but if there is data in store - use that one
-    store.dispatch('crud/GET', { route: '/city/oregon' })
-      .then(data => { cityData = data })
-      .catch(data => { 
-        console.log(data);
+
+    return store.dispatch('crud/GET', { route: `public/event/${route.params.event}` })
+      .then(data => {
+        cityData = data;
+        return { cityData };
+      })
+      .catch(err => { 
+        console.log(err);
         router.push('/');
       })
-  },
-  mounted() {
-    this.$store.dispatch('crud/GET', { route: `public/event/${this.$route.params.event}` })
-      .then(data => { console.log(data) });
   },
   data: () => ({
     eventData,
