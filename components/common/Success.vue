@@ -16,7 +16,6 @@ export default {
   name: 'Success',
   props: {},
   components: {
-    GenericSection,
     Heading,
   },
   data: () => ({}),
