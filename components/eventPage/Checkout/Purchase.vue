@@ -35,6 +35,7 @@
                     v-model="form[field].value"
                     :name="field"
                     :label="form[field].label"
+                    :loading="isLoading"
                     :error="form[field].error"
                     @blur="validateField(field, form)"
                     @input="clearError(field, form)"

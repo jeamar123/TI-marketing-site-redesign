@@ -6,6 +6,7 @@
       {
         'input--error': error,
         'input--non-empty': !isInputEmpty,
+        'input--disabled': disabled,
       },
     ]"
   >
@@ -17,6 +18,7 @@
         :id="name"
         :rows="isMultiline ? rows : ''"
         :placeholder="label"
+        :disabled="disabled"
         ref="inputRef"
         class="input__control"
         @input="$emit('input', $event.target.value)"
@@ -54,6 +56,10 @@ export default {
     label: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
     },
     isMultiline: {
       type: Boolean,
@@ -150,6 +156,10 @@ export default {
       border-color: $error-red;
       box-shadow: 0 0 2px 0 $error-red;
     }
+  }
+
+  &--disabled {
+    opacity: 0.5;
   }
 
   &--non-empty #{$self}__label,
