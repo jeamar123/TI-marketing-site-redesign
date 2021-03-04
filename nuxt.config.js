@@ -1,4 +1,8 @@
 const development = process.env.NODE_ENV !== 'production';
+const config = require('./static/config');
+const faviconPath = config.currentEvent === 'exploit'
+  ? '/favicon.ico'
+  : '/favicon.png';
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -10,7 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: faviconPath },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap' }
     ],
