@@ -1,20 +1,19 @@
 <template>
-  <div class="event-hero">
-    <div class="event-hero__wrapper">
-    <h1 class="event-hero__heading">
-      {{ event.name }}
-    </h1>
-    <p class="event-hero__short-desk">
-      Interactive IT Security Conference
+  <div class="ty-cfp">
+    <Heading color="white">
+      Thank you for your apply!
+    </Heading>
+    <p class="ty-cfp__text">
+      Your experience is very important for every conference participant
     </p>
-    <div class="event-hero__stripes-wrapper">
-      <div class="event-hero__stripe">
+    <div class="ty-cfp__stripes-wrapper">
+      <div class="ty-cfp__stripe">
         <svg-icon
           name="calendar"
           width="20"
           height="20"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         {{ eventTime }}
         <svg-icon
@@ -22,24 +21,24 @@
           width="26"
           height="18"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         <svg-icon
           name="location"
           width="18"
           height="26"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         Exploit Virtual Conference Platform
       </div>
-      <div class="event-hero__stripe">
+      <div class="ty-cfp__stripe">
         <svg-icon
           name="calendar"
           width="20"
           height="20"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         {{ eventTime }}
         <svg-icon
@@ -47,24 +46,24 @@
           width="26"
           height="18"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         <svg-icon
           name="location"
           width="18"
           height="26"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         Exploit Virtual Conference Platform
       </div>
-      <div class="event-hero__stripe">
+      <div class="ty-cfp__stripe">
         <svg-icon
           name="calendar"
           width="20"
           height="20"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         {{ eventTime }}
         <svg-icon
@@ -72,37 +71,27 @@
           width="26"
           height="18"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         <svg-icon
           name="location"
           width="18"
           height="26"
           fill="#0B0A14"
-          class="event-hero__icon"
+          class="ty-cfp__icon"
         />
         Exploit Virtual Conference Platform
       </div>
-    </div>
-    <p class="event-hero__description">
-      Please join us for ExploitCon, an exclusive one-day conference focused on providing the latest and greatest on cybersecurity.
-    </p>
-    <Button
-      class="event-hero__register"
-      @click="$router.push(`/${$route.params.event}/join`)"
-    >
-      register now
-    </Button>
     </div>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
-import Button from '~/components/common/Button';
+import Heading from '~/components/common/Heading';
 
 export default {
-  name: 'EventPageHero',
+  name: 'ThankYouCFP',
   props: {
     event: {
       type: Object,
@@ -110,7 +99,7 @@ export default {
     },
   },
   components: {
-    Button,
+    Heading,
   },
   data: () => ({}),
   computed: {
@@ -137,32 +126,16 @@ export default {
 <style lang="scss">
 @import '~/assets/scss/variables';
 
-.event-hero {
-  overflow: hidden;
+.ty-cfp {
+  background-color: $black;
+  width: 100%;
+  height: 100vh;
+  padding: 86px 16px 40px 16px;
+  background-color: $black;
+  position: relative;
 
-  &__wrapper {
-    width: 100%;
-    padding: 86px 16px 40px 16px;
-    background-color: $black;
-    position: relative;
-  }
-
-  &__heading,
-  &__register {
-    position: relative;
-    z-index: 2;
-  }
-
-  &__heading {
-    color: $white;
-    font-weight: bold;
-    font-size: 48px;
-    line-height: 65px;
-  }
-
-  &__short-desk {
-    line-height: 24px;
-    margin-bottom: 340px;
+  &__text {
+    text-align: center;
   }
 
   &__stripe {
@@ -181,21 +154,21 @@ export default {
     &:nth-child(1) {
       background-color: $accent-blue;
       transform: rotate(-10deg);
-      bottom: 30%;
+      bottom: 10%;
       left: -100%;
     }
 
     &:nth-child(2) {
       background-color: $accent-red;
       transform: rotate(-30deg);
-      bottom: 50%;
+      bottom: 30%;
       left: -55%;
     }
 
     &:nth-child(3) {
       background-color: $accent-yellow;
       transform: rotate(10deg);
-      bottom: 55%;
+      bottom: 35%;
       left: -155%;
     }
   }
@@ -207,20 +180,7 @@ export default {
     }
   }
 
-  &__description {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
-  &__register {
-    width: 100%;
-  }
-
   @media (min-width: $media-xs) {
-    &__short-desk {
-      margin-bottom: 460px;
-    }
-
     &__stripe {
       &:nth-child(2) {
         left: -85%;
@@ -230,35 +190,13 @@ export default {
         left: -125%;
       }
     }
-
-    &__register {
-      width: 328px;
-      margin: 0 auto;
-    }
   }
 
   @media (min-width: $media-sm) {
-    &__wrapper {
-      padding: 148px 24px 84px 24px;
-    }
+    padding: 148px 24px 84px 24px;
 
-    &__heading {
-      font-size: 64px;
-      line-height: 87px;
-    }
-
-    &__short-desk {
-      margin-bottom: 396px;
-    }
-
-    &__description {
-      text-align: right;
-      padding-left: 30%;
-    }
-
-    &__register {
-      margin: 0;
-      float: right;
+    &__text {
+      text-align: left;
     }
 
     &__stripe {
@@ -266,69 +204,49 @@ export default {
       font-size: 24px;
 
       &:nth-child(1) {
-        bottom: 27%;
+        bottom: 7%;
       }
 
       &:nth-child(2) {
-        bottom: 42%;
+        bottom: 22%;
       }
 
       &:nth-child(3) {
-        bottom: 47%;
+        bottom: 27%;
         left: -120%;
       }
     }
   }
 
   @media (min-width: $media-md) {
-    &__wrapper {
-      height: 100vh;
-      padding-bottom: 102px;
-      display: flex;
-      flex-flow: column;
-    }
-
-    &__short-desk {
-      margin-bottom: 0;
-    }
-
-    &__description {
-      margin-top: auto;
-      padding-left: 50%;
-      margin-bottom: 32px;
-    }
-
-    &__register {
-      align-self: flex-end;
-    }
+    height: 100vh;
+    padding-bottom: 102px;
+    display: flex;
+    flex-flow: column;
 
     &__stripe {
      &:nth-child(1) {
-        bottom: 30%;
+        bottom: 10%;
       }
 
       &:nth-child(2) {
-        bottom: 37%;
+        bottom: 17%;
         left: -100%;
       }
 
       &:nth-child(3) {
-        bottom: 52%;
+        bottom: 32%;
         left: -100%;
       }
     }
   }
 
   @media (min-width: $media-lg) {
-    height: calc(100vh + 60px);
-
-    &__wrapper {
-      padding: 150px 20%;
-    }
+    padding: 150px 20%;
 
     &__stripe {
      &:nth-child(1) {
-        bottom: 40%;
+        bottom: 20%;
       }
 
       &:nth-child(2) {

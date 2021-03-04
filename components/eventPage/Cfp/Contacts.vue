@@ -10,6 +10,19 @@
     </template>
     <template #form>
       <form @submit.prevent="sendCfp">
+        <transition name="fade">
+          <Error v-if="hasError" :style="{'margin-bottom': '40px'}">
+            <template #header>
+              Looks like there was an error submitting your call for papers
+            </template>
+            <template #text>
+              Please try again or contact us directly at
+              <a href="mailto:info@exploitcon.com" class="error__link">
+                info@exploitcon.com
+              </a>
+            </template>
+          </Error>
+        </transition>
         <Input
           v-for="field in formFields"
           :key="field"
@@ -35,15 +48,22 @@ import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
 
 export default {
   name: 'CfpSpeaker',
-  props: {},
+  props: {
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     FormLayout,
     Heading,
     Input,
     Button,
+    Error,
   },
   data: () => ({
     form: {
@@ -77,7 +97,7 @@ export default {
       if(!isValid) return;
 
       const data = this.transformForm(this.form);
-      this.$emit('send-sfp', data);
+      this.$emit('send-cfp', data);
     },
   },
 };

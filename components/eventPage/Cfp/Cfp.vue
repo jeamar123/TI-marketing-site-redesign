@@ -1,24 +1,36 @@
 <template>
-  <GenericSection class="cfp">
-    <transition name="fade">
-      <Speaker
-        v-if="!isSpeakerFilled && !isTalkFilled"
-        @go-to-talk="goToTalk"
-      />
-    </transition>
-    <transition name="fade">
-      <Talk
-        v-if="isSpeakerFilled && !isTalkFilled"
-        @go-to-contacts="goToContacts"
-      />
-    </transition>
-    <transition name="fade">
-      <Contacts
-        v-if="isSpeakerFilled && isTalkFilled"
-        @send-cfp="sendCfp"
-      />
-    </transition>
-  </GenericSection>
+  <transition-group name="fade">
+    <ThankYou
+      v-if="isSent"
+      key="cfp-ty"
+      :event="event"
+    />
+    <GenericSection
+      v-else
+      key="cfp-forms"
+      class="cfp"
+    >
+      <transition name="fade">
+        <Speaker
+          v-if="!isSpeakerFilled && !isTalkFilled"
+          @go-to-talk="goToTalk"
+        />
+      </transition>
+      <transition name="fade">
+        <Talk
+          v-if="isSpeakerFilled && !isTalkFilled"
+          @go-to-contacts="goToContacts"
+        />
+      </transition>
+      <transition name="fade">
+        <Contacts
+          v-if="isSpeakerFilled && isTalkFilled"
+          :has-error="hasError"
+          @send-cfp="sendCfp"
+        />
+      </transition>
+    </GenericSection>
+  </transition-group>
 </template>
 
 <script>
@@ -27,20 +39,29 @@ import GenericSection from '~/components/common/GenericSection';
 import Speaker from './Speaker';
 import Talk from './Talk';
 import Contacts from './Contacts';
+import ThankYou from './ThankYou';
 
 export default {
   name: 'CfpForm',
-  props: {},
+  props: {
+    event: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   components: {
     GenericSection,
     Speaker,
     Talk,
     Contacts,
+    ThankYou,
   },
   data: () => ({
     isSpeakerFilled: false,
     isTalkFilled: false,
     form: {},
+    hasError: false,
+    isSent: false,
   }),
   computed: {},
   methods: {
@@ -58,10 +79,13 @@ export default {
     sendCfp(data) {
       this.form = { ...this.form, ...data };
 
+      this.hasError = false;
       this.post({
         route: `/public/event/${this.$route.params.event}/talk`,
         data: this.form,
-      }).then(resp => { console.log(resp) }).catch(err => console.log(err));
+      })
+        .then(() => { this.isSent = true; })
+        .catch(() => { this.hasError = false; });
     },
   },
 };
