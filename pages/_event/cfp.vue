@@ -13,18 +13,13 @@ export default {
   components: {
     Cfp,
   },
-  asyncData({ store, route }) {
-    let event = null;
+  async asyncData({ store, route }) {
+    const events = await store.dispatch('crud/GET', { route: '/admin/event/upcoming' })
+      .then (data => data);
 
-    return store.dispatch('crud/GET', { route: `public/event/${route.params.event}` })
-      .then(data => {
-        event = data;
-        return { event };
-      })
-      .catch(err => { 
-        console.log(err);
-        router.push('/');
-      })
+    return {
+      event: events.find(item => item.id === route.params.event),
+    }
   },
   data: () => ({}),
   computed: {},

@@ -2,7 +2,7 @@
   <div class="event-hero">
     <div class="event-hero__wrapper">
     <h1 class="event-hero__heading">
-      {{ event.name }}
+      {{ event.event.name }}
     </h1>
     <p class="event-hero__short-desk">
       Interactive IT Security Conference
@@ -85,7 +85,7 @@
       </div>
     </div>
     <p class="event-hero__description">
-      Please join us for ExploitCon, an exclusive one-day conference focused on providing the latest and greatest on cybersecurity.
+      {{ shortDescription }}
     </p>
     <Button
       class="event-hero__register"
@@ -115,19 +115,22 @@ export default {
   data: () => ({}),
   computed: {
     startTime() {
-      return moment(this.event.start).format('HH:MM a');
+      return moment(this.event.event.start).format('HH:MM a');
     },
     endTime() {
-      return moment(this.event.end).format('HH:MM a');
+      return moment(this.event.event.end).format('HH:MM a');
     },
     date() {
-      return moment(this.event.end).format('MMM DD');
+      return moment(this.event.event.end).format('MMM DD');
     },
     year() {
-      return moment(this.event.end).format('YYYY');
+      return moment(this.event.event.end).format('YYYY');
     },
     eventTime() {
       return `${this.startTime} - ${this.endTime}, ${this.date}, ${this.year}`;
+    },
+    shortDescription() {
+      return this.event.location.description.split('.')[0];
     },
   },
   methods: {},

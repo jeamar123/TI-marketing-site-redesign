@@ -1,7 +1,7 @@
 <template>
   <TextSection
-    :heading="data.title"
-    :text="data.description"
+    :heading="title"
+    :text="text"
     align-heading="right"
     is-event-page
     is-reverse
@@ -23,17 +23,15 @@ import Button from '~/components/common/Button';
 
 export default {
   name: 'EventPageApply',
-  props: {
-    data: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: {},
   components: {
     TextSection,
     Button,
   },
-  data: () => ({}),
+  data: () => ({
+    title: 'Want to share your experience?',
+    text: 'If you’re an expert in your IT field, ExploitCon is a great platform to get your message out. Show off your research, an attack or even a solution you implemented that others should see. Well, you are in luck! Call For Papers is now open. Click below to apply!'
+  }),
   computed: {},
   methods: {},
 };

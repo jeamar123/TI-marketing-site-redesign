@@ -22,7 +22,7 @@
             <router-link
               v-for="link in menuItems"
               :key="link.hash"
-              :to="`${$route.path}#${link.hash}`"
+              :to="`${path}#${link.hash}`"
               class="navigation__nav-link"
             >
               {{ link.name }}
@@ -89,7 +89,8 @@ export default {
     eventNav: [
       'About',
       'Apply talk',
-      'Shedule',
+      'Schedule',
+      'Villages',
       'Volunteering',
       'Sponsors',
       'Tickets',
@@ -109,7 +110,12 @@ export default {
       return this.$route.params.event
         ? this.getMenuItems(this.eventNav)
         : this.getMenuItems(this.homeNav);
-    }
+    },
+    path() {
+      return this.$route.params.event
+        ? `/${this.$route.params.event}`
+        : '/';
+    },
   },
   methods: {
     getMenuItems(itemsArr) {

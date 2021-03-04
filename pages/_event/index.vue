@@ -1,13 +1,29 @@
 <template>
-  <div>
+  <div :style="{'scroll-behavior': 'smooth'}">
     <Hero :event="cityData" />
-    <About :name="cityData.name" :description="cityData.description" />
-    <Apply :data="eventData.apply" />
-    <Schedule :data="eventData.schedule" />
-    <Villages :data="eventData.villages" />
-    <Volunteering />
-    <Sponsors :data="eventData.sponsors" />
-    <Tickets :tickets="cityData.ticket_type" />
+    <About
+      :name="cityData.event.name"
+      :description="cityData.event.description"
+      id="about"
+    />
+    <Apply id="apply-talk" />
+    <Schedule
+      :data="eventData.schedule"
+      id="schedule"
+    />
+    <Villages
+      :data="eventData.villages"
+      id="villages"
+    />
+    <Volunteering id="volunteering" />
+    <Sponsors
+      :data="eventData.sponsors"
+      id="sponsors"
+    />
+    <Tickets
+      :tickets="cityData.event.ticket_type"
+      id="tickets"
+    />
     <Contacts />
   </div>
 </template>
@@ -38,10 +54,17 @@ export default {
     Tickets,
     Contacts,
   },
-  asyncData({ store, route }) {
+  async asyncData({ store, route }) {
+    let upcomingEvents = null;
     let cityData = null;
 
-    return store.dispatch('crud/GET', { route: `public/event/${route.params.event}` })
+    await store.dispatch('crud/GET', { route: '/admin/event/upcoming' })
+      .then (data => { upcomingEvents = data });
+
+    const currentCity = upcomingEvents
+      .find(({ id }) => id === route.params.event).location;
+
+    return store.dispatch('crud/GET', { route: `city/${currentCity}` })
       .then(data => {
         cityData = data;
         return { cityData };
