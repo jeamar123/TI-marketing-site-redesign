@@ -40,7 +40,10 @@
             @blur="validateField(fieldName, form)"
             @input="clearError(fieldName, form)"
           />
-          <Button class="volunteering__submit">
+          <Button
+            :is-loading="isLoading"
+            class="volunteering__submit"
+          >
             submit
           </Button>
         </form>
@@ -81,6 +84,7 @@ export default {
     },
     hasError: false,
     isSent: false,
+    isLoading: false,
   }),
   computed: {},
   methods: {
@@ -102,9 +106,11 @@ export default {
         name: 'Volunteer',
       };
 
+      this.isLoading = true;
       this.POST({ route: '/public/feedback', data: formToSend })
         .then(() => { this.isSent = true; })
-        .catch(() => { this.hasError = true; });
+        .catch(() => { this.hasError = true; })
+        .finally(() => { this.isLoading = false; });
     },
   },
 };

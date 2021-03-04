@@ -20,7 +20,10 @@
             label="Ticket Code"
             @input="form.code.error = ''"
           />
-          <Button class="form-layout__button">
+          <Button
+            :is-loading="isLoading"
+            class="form-layout__button"
+          >
             join
           </Button>
         </form>
@@ -143,6 +146,7 @@ export default {
         error: '',
       },
     },
+    isLoading: false,
   }),
   computed: {
     startTime() {
@@ -169,6 +173,7 @@ export default {
       this.form.code.error = '';
 
       if (this.form.code.value) {
+        this.isLoading = true;
         this.POST({
           route: `/ticketing/event/${this.$route.params.event}/code/${this.form.code.value.toLowerCase()}/validate`,
           data: { 'email': 'test@email.com' },
@@ -178,7 +183,8 @@ export default {
           if (err.response.data.errors) this.form.code.error = 'Code has been used';
           else if (err.response.data) this.form.code.error = err.response.data.msg;
           else this.form.code.error = 'Code not valid';
-        });
+        })
+        .finally(() => { this.isLoading = false; });
       }
     },
   },

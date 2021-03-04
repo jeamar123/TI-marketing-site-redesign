@@ -9,6 +9,7 @@
       <Purchase
         v-if="!areTicketsPurchased"
         :tickets="event.ticket_type"
+        :is-loading="isLoading"
         @pay-for-tickets="payForTickets"
       />
       <ThankYou
@@ -42,6 +43,7 @@ export default {
   data: () => ({
     areTicketsPurchased: false,
     infoMessage: '',
+    isLoading: false,
     codes: [
       {
           type: 'free',
@@ -90,6 +92,7 @@ export default {
         const stripe = Stripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
         const data = quantityArr.filter(([key, value]) => value.quantity);
 
+        this.isLoading = true;
         fetch("http://localhost:4242/create-checkout-session", {
           method: "POST",
           body: JSON.stringify({data}),
@@ -111,7 +114,8 @@ export default {
           })
           .catch(function (error) {
             console.error("Error:", error);
-          });
+          })
+          .finally(() => { this.isLoading = false; });
       }
     },
     getTicketCodes(quantityArr, email) {

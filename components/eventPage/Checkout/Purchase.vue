@@ -39,7 +39,10 @@
                     @blur="validateField(field, form)"
                     @input="clearError(field, form)"
                 />
-                <Button class="form-layout__button">
+                <Button
+                    :is-loading="isLoading"
+                    class="form-layout__button"
+                >
                     {{buttonText}}
                 </Button>
             </form>
@@ -63,6 +66,10 @@ export default {
         tickets: {
           type: Array,
           default: () => [],
+        },
+        isLoading: {
+          type: Boolean,
+          default: false,
         },
     },
     components: {

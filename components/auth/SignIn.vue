@@ -120,7 +120,10 @@
             <div v-if="!doPasswordsMatch" class="sign-in__pass-err">
               Passwords do not match
             </div>
-            <Button class="form-layout__button">
+            <Button
+              :is-loading="isLoading"
+              class="form-layout__button"
+            >
               sign in
             </Button>
           </form>
@@ -156,6 +159,7 @@ export default {
     doPasswordsMatch: true,
     isSignInSuccessfull: false,
     hasError: false,
+    isLoading: false,
     errorMsg: '',
     form: {
       username: {
@@ -203,13 +207,15 @@ export default {
       const creds = this.transformForm(this.form);
       delete creds.passwordConfirmed;
 
+      this.isLoading = true;
       this.register(creds).then(() => {
         this.clearErrors();
         this.isSignInSuccessfull = true;
       }).catch((err) => {
         this.hasError = true;
         this.errorMsg = err.message || '';
-      });
+      })
+      .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) this.hasError = false;

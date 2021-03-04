@@ -42,7 +42,10 @@
             @blur="validateField(fieldName, form)"
             @input="clearError(fieldName, form)"
           />
-          <Button class="contacts-form__button">
+          <Button
+            :is-loading="isLoading"
+            class="contacts-form__button"
+          >
             submit
           </Button>
         </form>
@@ -98,6 +101,7 @@ export default {
     },
     hasError: false,
     isSent: false,
+    isLoading: false,
   }),
   computed: {},
   methods: {
@@ -118,9 +122,11 @@ export default {
         subject: `Exploit Contact Us: ${this.$route.params.event}`,
       };
 
+      this.isLoading = true;
       this.POST({ route: '/public/feedback', data: formToSend })
         .then(() => { this.isSent = true; })
-        .catch(() => { this.hasError = true; });
+        .catch(() => { this.hasError = true; })
+        .finally(() => { this.isLoading = false; });
     },
   },
 };

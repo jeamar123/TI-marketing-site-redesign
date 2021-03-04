@@ -104,7 +104,10 @@
             @blur="validateField(field, form)"
             @input="clearError(field, form)"
           />
-          <Button class="form-layout__button">
+          <Button
+            :is-loading="isLoading"
+            class="form-layout__button"
+          >
             login
           </Button>
           <router-link to="/forgot-password" class="form-layout__link">Forgot a password?</router-link>
@@ -156,6 +159,7 @@ export default {
     isUnconfirmed: false,
     isUnknownErr: false,
     isEmailError: false,
+    isLoading: false,
   }),
   computed: {
     ...mapGetters({
@@ -188,7 +192,8 @@ export default {
       const isValid = this.validateForm(this.form);
 
       if (!isValid) return;
-
+      
+      this.isLoading = true;
       this.signIn(transformForm(this.form))
         .then(() => {
           this.clearErrors();
@@ -209,7 +214,8 @@ export default {
           }
 
           this.hasError = true;
-        });
+        })
+        .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) {

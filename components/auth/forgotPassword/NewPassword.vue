@@ -56,7 +56,10 @@
           <div v-if="!doPasswordsMatch" class="new-pass__pass-err">
             Passwords do not match
           </div>
-          <Button class="form-layout__button">
+          <Button
+            :is-loading="isLoading"
+            class="form-layout__button"
+          >
             send a code
           </Button>
         </form>
@@ -94,6 +97,7 @@ export default {
     doPasswordsMatch: true,
     isChangeSuccessfull: false,
     hasError: false,
+    isLoading: false,
     errorMsg: '',
     form: {
       code: {
@@ -143,17 +147,19 @@ export default {
         username: this.username,
       };
 
+      this.isLoading = true;
       this.clearErrors();
       this.changePassword(form).then(() => {
         this.isChangeSuccessfull = true;
       }).catch((err) => {
         this.hasError = true;
         this.errorMsg = err.message || '';
-      });
+      })
+      .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) this.hasError = true;
-      if (this.this.errorMsg) this.errorMsg = err.message || '';
+      if (this.errorMsg) this.errorMsg = err.message || '';
     },
   },
 };

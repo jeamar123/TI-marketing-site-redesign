@@ -33,7 +33,10 @@
           @blur="validateField(field, form)"
           @input="clearError(field, form)"
         />
-        <Button class="form-layout__button">
+        <Button
+          :is-loading="isLoading"
+          class="form-layout__button"
+        >
           send
         </Button>
       </form>
@@ -54,6 +57,10 @@ export default {
   name: 'CfpSpeaker',
   props: {
     hasError: {
+      type: Boolean,
+      default: false,
+    },
+    isLoading: {
       type: Boolean,
       default: false,
     },

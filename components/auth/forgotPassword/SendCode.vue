@@ -36,7 +36,10 @@
           @blur="validateField(field, form)"
           @input="clearError(field, form)"
         />
-        <Button class="form-layout__button">
+        <Button
+          :is-loading="isLoading"
+          class="form-layout__button"
+        >
           send a code
         </Button>
       </form>
@@ -74,6 +77,7 @@ export default {
     },
     hasError: false,
     errorMsg: '',
+    isLoading: false,
   }),
   computed: {},
   methods: {
@@ -87,6 +91,7 @@ export default {
       const isValid = this.validateForm(this.form);
       if (!isValid) return;
 
+      this.isLoading = true;
       this.clearErrors();
       this.sendPassCode(this.form.username.value)
         .then(() => {
@@ -94,7 +99,8 @@ export default {
         }).catch((err) => {
           this.hasError = true;
           this.errorMsg = err.message || '';
-        });
+        })
+        .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) this.hasError = false;
