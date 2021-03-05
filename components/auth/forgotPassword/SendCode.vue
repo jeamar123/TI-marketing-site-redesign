@@ -19,8 +19,8 @@
               {{ errorMsg }}
             </p>
             Please try again later or contact us at
-            <a href="'mailto:info@arctic-con.com" class="form-layout__link">
-              info@arctic-con.com
+            <a :href="`mailto:${config.currentEmail}`" class="form-layout__link">
+              {{ config.currentEmail }}
             </a>
           </template>
         </Error>
@@ -51,6 +51,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -79,6 +80,7 @@ export default {
     hasError: false,
     errorMsg: '',
     isLoading: false,
+    config,
   }),
   computed: {},
   methods: {

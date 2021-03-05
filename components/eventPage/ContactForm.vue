@@ -24,8 +24,8 @@
               </template>
               <template #text>
                 Please contact us directly at
-                <a href="mailto:info@exploitcon.com" class="error__link">
-                  info@exploitcon.com
+                <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                  {{ config.currentEmail }}
                 </a>
               </template>
             </Error>
@@ -59,6 +59,7 @@
 import { mapActions } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import GenericSection from '~/components/common/GenericSection';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -103,6 +104,7 @@ export default {
     hasError: false,
     isSent: false,
     isLoading: false,
+    config,
   }),
   computed: {},
   methods: {

@@ -67,8 +67,8 @@
         <a href="tel:9072907660">
           (907)&nbsp;290&nbsp;-&nbsp;7660
         </a>
-        <a href="mailto:info@artic-con.com">
-          info@artic-con.com
+        <a :href="`mailto:${config.currentEmail}`">
+          {{ config.currentEmail }}
         </a>
       </p>
       <p class="footer__policies">

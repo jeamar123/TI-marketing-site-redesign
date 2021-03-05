@@ -17,8 +17,8 @@
             </template>
             <template #text>
               Please try again or contact us directly at
-              <a href="mailto:info@exploitcon.com" class="error__link">
-                info@exploitcon.com
+              <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                {{ config.currentEmail }}
               </a>
             </template>
           </Error>
@@ -48,6 +48,7 @@
 <script>
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -74,6 +75,7 @@ export default {
     Error,
   },
   data: () => ({
+    config,
     form: {
       email: {
         value: '',

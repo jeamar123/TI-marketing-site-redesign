@@ -99,8 +99,8 @@
               </template>
               <template #text>
                 Please try again later or contact us at
-                <a href="mailto:info@exploitcon.come" class="form-layout__link">
-                  info@exploitcon.com
+                <a :href="`mailto:${config.currentEmail}`" class="form-layout__link">
+                  {{ config.currentEmail }}
                 </a>
               </template>
             </Error>
@@ -138,6 +138,7 @@
 import { mapActions } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import GenericSection from '~/components/common/GenericSection';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
@@ -157,6 +158,7 @@ export default {
   },
   components: {},
   data: () => ({
+    config,
     doPasswordsMatch: true,
     isSignInSuccessfull: false,
     hasError: false,

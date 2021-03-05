@@ -48,8 +48,8 @@
         <a href="tel:0972907660" class="navigation__phone">
           (097)&nbsp;290&nbsp;-&nbsp;7660
         </a>
-        <a href="mailto:info@arctic-con.com" class="navigation__email">
-          info@arctic-con.com
+        <a :href="`mailto:${config.currentEmail}`" class="navigation__email">
+          {{ config.currentEmail }}
         </a>
       </div>
       <Button

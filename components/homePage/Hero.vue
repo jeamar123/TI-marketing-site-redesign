@@ -1,7 +1,9 @@
 <template>
   <div class="hero" :class="{'hero--ac': config.currentEvent === 'arcticcon'}">
     <div class="hero__wrapper">
-      <h1 class="hero__heading">Exploit</h1>
+      <h1 class="hero__heading">
+        {{ config.currentEvent === 'exploit' ? 'Exploit' : 'ArcticCon' }}
+      </h1>
     </div>
     <div class="hero__description">
       Interactive IT Security Conference

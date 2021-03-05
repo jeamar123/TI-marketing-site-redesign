@@ -86,8 +86,8 @@
                 </template>
                 <template v-else-if="isUnknownErr || isEmailError">
                   Please try again or contact us at
-                  <a :href="'mailto:info@exploitcon.com'" class="error__link">
-                    info@exploitcon.com
+                  <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                    {{ config.currentEmail }}
                   </a>
                 </template>
               </template>
@@ -122,6 +122,7 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import GenericSection from '~/components/common/GenericSection';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
@@ -141,6 +142,7 @@ export default {
   },
   components: {},
   data: () => ({
+    config,
     form: {
       username: {
         value: '',
