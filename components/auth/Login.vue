@@ -101,7 +101,7 @@
             :name="field"
             :label="fieldProps.label"
             :error="fieldProps.error"
-            :loading="isLoading"
+            :disabled="isLoading"
             @blur="validateField(field, form)"
             @input="clearError(field, form)"
           />
@@ -160,7 +160,7 @@ export default {
     isUnconfirmed: false,
     isUnknownErr: false,
     isEmailError: false,
-    isLoading: true,
+    isLoading: false,
   }),
   computed: {
     ...mapGetters({

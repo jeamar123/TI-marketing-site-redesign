@@ -49,7 +49,7 @@
             :type="fieldObj.rules.includes('password') ? 'password' : 'text'"
             :name="field"
             :label="fieldObj.label"
-            :loading="isLoading"
+            :disabled="isLoading"
             :error="fieldObj.error"
             @blur="validateField(field, form)"
             @input="clearError(field, form)"

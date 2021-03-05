@@ -16,7 +16,7 @@
           <Input
             v-model="form.code.value"
             :error="form.code.error"
-            :loading="isLoading"
+            :disabled="isLoading"
             name="ticket-code"
             label="Ticket Code"
             @input="form.code.error = ''"

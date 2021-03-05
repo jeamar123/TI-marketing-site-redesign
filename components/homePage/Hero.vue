@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div class="hero" :class="{'hero--ac': config.currentEvent === 'arcticcon'}">
     <div class="hero__wrapper">
       <h1 class="hero__heading">Exploit</h1>
     </div>
@@ -10,11 +10,15 @@
 </template>
 
 <script>
+import config from '~/static/config';
+
 export default {
   name: 'HomePageHero',
   props: {},
   components: {},
-  data: () => ({}),
+  data: () => ({
+    config,
+  }),
   computed: {},
   methods: {},
 };
@@ -24,9 +28,17 @@ export default {
 @import '~/assets/scss/variables';
 
 .hero {
+  $self: &;
+
   overflow: hidden;
   position: relative;
   height: 100vh;
+
+  &--ac {
+    #{$self}__wrapper {
+      background-image: url('../../assets/img/bg/ac-main-page-bg.jpg');
+    }
+  }
 
   &__wrapper {
     width: 100%;

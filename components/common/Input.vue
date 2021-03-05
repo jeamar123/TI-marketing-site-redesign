@@ -59,7 +59,7 @@ export default {
     },
     disabled: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     isMultiline: {
       type: Boolean,

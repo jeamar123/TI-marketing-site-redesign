@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer__wrapper">
       <div class="footer__logo-wrapper">
-        <img src="~/assets/img/logo.png" alt="ExploitCon logo" class="footer__logo" />
+        <img :src="logoPath" alt="ExploitCon logo" class="footer__logo" />
       </div>
       <p class="footer__description">
         Interactive&nbsp;IT
@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import config from '~/static/config';
 import Heading from '~/components/common/Heading';
 
 export default {
@@ -98,8 +99,14 @@ export default {
   components: {
     Heading,
   },
-  data: () => ({}),
-  computed: {},
+  data: () => ({
+    config,
+  }),
+  computed: {
+    logoPath() {
+      return require(`~/assets/img/${this.config.currentEvent === 'exploit' ? '' : 'ac-white-'}logo.png`);
+    },
+  },
   methods: {},
 };
 </script>

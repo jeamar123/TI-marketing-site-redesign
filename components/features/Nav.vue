@@ -2,7 +2,7 @@
   <div class="navigation" :class="{'navigation--with-bg': isMobNavOpened}">
     <router-link to="/" class="navigation__link">
       <img
-        src="~/assets/img/logo.png"
+        :src="logoPath"
         alt="ExploitCon logo"
         class="navigation__logo"
       />
@@ -67,6 +67,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import config from '~/static/config';
 import Button from '~/components/common/Button';
 import UserMenu from '~/components/nav/UserMenu';
 
@@ -78,6 +79,7 @@ export default {
     UserMenu,
   },
   data: () => ({
+    config,
     isMobNavOpened: false,
     homeNav: [
       'Home',
@@ -115,6 +117,9 @@ export default {
       return this.$route.params.event
         ? `/${this.$route.params.event}`
         : '/';
+    },
+    logoPath() {
+      return require(`~/assets/img/${this.config.currentEvent === 'exploit' ? '' : 'ac-white-'}logo.png`);
     },
   },
   methods: {

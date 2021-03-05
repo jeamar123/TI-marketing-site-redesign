@@ -113,7 +113,7 @@
               :type="fieldProps.rules.includes('password') ? 'password' : 'text'"
               :name="field"
               :label="fieldProps.label"
-              :loading="isLoading"
+              :disabled="isLoading"
               :error="fieldProps.error"
               @blur="validateField(field, form)"
               @input="clearError(field, form)"
