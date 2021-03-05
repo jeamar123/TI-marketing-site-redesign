@@ -19,8 +19,8 @@
               {{ errorMsg }}
             </p>
             Please try again later or contact us at
-            <a href="'mailto:info@arctic-con.com" class="form-layout__link">
-              info@arctic-con.com
+            <a :href="`mailto:${config.currentEmail}`" class="form-layout__link">
+              {{ config.currentEmail }}
             </a>
           </template>
         </Error>
@@ -32,11 +32,15 @@
           v-model="fieldObj.value"
           :name="field"
           :label="fieldObj.label"
+          :disabled="isLoading"
           :error="fieldObj.error"
           @blur="validateField(field, form)"
           @input="clearError(field, form)"
         />
-        <Button class="form-layout__button">
+        <Button
+          :is-loading="isLoading"
+          class="form-layout__button"
+        >
           send a code
         </Button>
       </form>
@@ -47,6 +51,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -74,6 +79,8 @@ export default {
     },
     hasError: false,
     errorMsg: '',
+    isLoading: false,
+    config,
   }),
   computed: {},
   methods: {
@@ -87,6 +94,7 @@ export default {
       const isValid = this.validateForm(this.form);
       if (!isValid) return;
 
+      this.isLoading = true;
       this.clearErrors();
       this.sendPassCode(this.form.username.value)
         .then(() => {
@@ -94,7 +102,8 @@ export default {
         }).catch((err) => {
           this.hasError = true;
           this.errorMsg = err.message || '';
-        });
+        })
+        .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) this.hasError = false;

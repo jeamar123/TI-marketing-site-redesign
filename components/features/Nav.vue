@@ -2,7 +2,7 @@
   <div class="navigation" :class="{'navigation--with-bg': isMobNavOpened}">
     <router-link to="/" class="navigation__link">
       <img
-        src="~/assets/img/logo.png"
+        :src="logoPath"
         alt="ExploitCon logo"
         class="navigation__logo"
       />
@@ -22,7 +22,7 @@
             <router-link
               v-for="link in menuItems"
               :key="link.hash"
-              :to="`${$route.path}#${link.hash}`"
+              :to="`${path}#${link.hash}`"
               class="navigation__nav-link"
             >
               {{ link.name }}
@@ -48,8 +48,8 @@
         <a href="tel:0972907660" class="navigation__phone">
           (097)&nbsp;290&nbsp;-&nbsp;7660
         </a>
-        <a href="mailto:info@arctic-con.com" class="navigation__email">
-          info@arctic-con.com
+        <a :href="`mailto:${config.currentEmail}`" class="navigation__email">
+          {{ config.currentEmail }}
         </a>
       </div>
       <Button
@@ -67,6 +67,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import config from '~/static/config';
 import Button from '~/components/common/Button';
 import UserMenu from '~/components/nav/UserMenu';
 
@@ -78,6 +79,7 @@ export default {
     UserMenu,
   },
   data: () => ({
+    config,
     isMobNavOpened: false,
     homeNav: [
       'Home',
@@ -89,7 +91,8 @@ export default {
     eventNav: [
       'About',
       'Apply talk',
-      'Shedule',
+      'Schedule',
+      'Villages',
       'Volunteering',
       'Sponsors',
       'Tickets',
@@ -109,7 +112,15 @@ export default {
       return this.$route.params.event
         ? this.getMenuItems(this.eventNav)
         : this.getMenuItems(this.homeNav);
-    }
+    },
+    path() {
+      return this.$route.params.event
+        ? `/${this.$route.params.event}`
+        : '/';
+    },
+    logoPath() {
+      return require(`~/assets/img/${this.config.currentEvent === 'exploit' ? '' : 'ac-white-'}logo.png`);
+    },
   },
   methods: {
     getMenuItems(itemsArr) {

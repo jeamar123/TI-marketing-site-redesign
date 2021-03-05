@@ -1,13 +1,29 @@
 <template>
-  <div>
-    <Hero :data="eventData.hero" />
-    <About :data="eventData.about" />
-    <Apply :data="eventData.apply" />
-    <Schedule :data="eventData.schedule" />
-    <Villages :data="eventData.villages" />
-    <Volunteering />
-    <Sponsors :data="eventData.sponsors" />
-    <Tickets :data="eventData.tickets" />
+  <div :style="{'scroll-behavior': 'smooth'}">
+    <Hero :event="cityData" />
+    <About
+      :name="cityData.event.name"
+      :description="cityData.event.description"
+      id="about"
+    />
+    <Apply id="apply-talk" />
+    <Schedule
+      :data="eventData.schedule"
+      id="schedule"
+    />
+    <Villages
+      :data="eventData.villages"
+      id="villages"
+    />
+    <Volunteering id="volunteering" />
+    <Sponsors
+      :data="eventData.sponsors"
+      id="sponsors"
+    />
+    <Tickets
+      :tickets="cityData.event.ticket_type"
+      id="tickets"
+    />
     <Contacts />
   </div>
 </template>
@@ -38,21 +54,25 @@ export default {
     Tickets,
     Contacts,
   },
-  asyncData({ store, router }) {
+  async asyncData({ store, route }) {
+    let upcomingEvents = null;
     let cityData = null;
-// use store to get city for route 
-// or get all events here than search for needed one and send event
-// or if there's no data in store about event, get all events and search, but if there is data in store - use that one
-    store.dispatch('crud/GET', { route: '/city/oregon' })
-      .then(data => { cityData = data })
-      .catch(data => { 
-        console.log(data);
+
+    await store.dispatch('crud/GET', { route: '/admin/event/upcoming' })
+      .then (data => { upcomingEvents = data });
+
+    const currentCity = upcomingEvents
+      .find(({ id }) => id === route.params.event).location;
+
+    return store.dispatch('crud/GET', { route: `city/${currentCity}` })
+      .then(data => {
+        cityData = data;
+        return { cityData };
+      })
+      .catch(err => { 
+        console.log(err);
         router.push('/');
       })
-  },
-  mounted() {
-    this.$store.dispatch('crud/GET', { route: `public/event/${this.$route.params.event}` })
-      .then(data => { console.log(data) });
   },
   data: () => ({
     eventData,

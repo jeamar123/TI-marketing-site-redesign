@@ -1,7 +1,7 @@
 <template>
   <TextSection
-    :heading="data.title"
-    :text="data.description"
+    :heading="heading"
+    :text="description"
     is-event-page
     class="event-about"
   />
@@ -13,16 +13,24 @@ import TextSection from '~/components/common/TextSection';
 export default {
   name: 'EventPageAbout',
   props: {
-    data: {
-      type: Object,
-      default: () => ({}),
+    name: {
+      type: String,
+      default: '',
+    },
+    description: {
+      type: String,
+      default: '',
     },
   },
   components: {
     TextSection,
   },
   data: () => ({}),
-  computed: {},
+  computed: {
+    heading() {
+      return `What is ${this.name}?`;
+    },
+  },
   methods: {},
 };
 </script>

@@ -1,45 +1,71 @@
 <template>
   <GenericSection class="contacts-form">
-    <Heading
-      color="white"
-      text-align="center"
-      class="contacts-form__heading"
-    >
-      Contact us
-    </Heading>
-    <form class="contacts-form__form" @submit.prevent="contactUs">
-      <Input
-        v-model="form.name"
-        name="name"
-        label="Name"
-        class="contacts-form__input"
-      />
-      <Input
-        v-model="form.email"
-        name="email"
-        label="Email"
-        class="contacts-form__input"
-      />
-      <Input
-        v-model="form.message"
-        name="message"
-        label="Message"
-        is-multiline
-        :rows="4"
-        class="contacts-form__input"
-      />
-      <Button class="contacts-form__button">
-        submit
-      </Button>
-    </form>
+    <transition-group name="fade">
+      <Success v-if="isSent" key="contscts-success-msg">
+        We will answer you as soon as possible
+      </Success>
+      <div
+        v-else
+        key="contacts-form"
+        class="contacts-form__wrapper"
+      >
+        <Heading
+          color="white"
+          text-align="center"
+          class="contacts-form__heading"
+        >
+          Contact us
+        </Heading>
+        <form class="contacts-form__form" @submit.prevent="contactUs">
+          <transition name="fade">
+            <Error v-if="hasError" class="contacts-form__error">
+              <template #header>
+                Looks like there was an error
+              </template>
+              <template #text>
+                Please contact us directly at
+                <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                  {{ config.currentEmail }}
+                </a>
+              </template>
+            </Error>
+          </transition>
+          <Input
+            v-for="(fieldObj, fieldName) in form"
+            :key="fieldName"
+            v-model="fieldObj.value"
+            :name="fieldName"
+            :label="fieldObj.label"
+            :disabled="isLoading"
+            :error="fieldObj.error"
+            :is-multiline="fieldObj.isMultiline"
+            :rows="fieldObj.rows"
+            @blur="validateField(fieldName, form)"
+            @input="clearError(fieldName, form)"
+          />
+          <Button
+            :is-loading="isLoading"
+            class="contacts-form__button"
+          >
+            submit
+          </Button>
+        </form>
+      </div>
+    </transition-group>
   </GenericSection>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { transformForm } from '~/assets/js/utils';
+import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import GenericSection from '~/components/common/GenericSection';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
+import Success from '~/components/common/Success';
 
 export default {
   name: 'ContactsForm',
@@ -49,18 +75,61 @@ export default {
     Heading,
     Input,
     Button,
+    Error,
+    Success,
   },
   data: () => ({
     form: {
-      name: '',
-      email: '',
-      message: '',
+      name: {
+        value: '',
+        error: '',
+        rules: ['required'],
+        label: 'Name',
+      },
+      email: {
+        value: '',
+        error: '',
+        rules: ['required', 'email'],
+        label: 'Email',
+      },
+      message: {
+        value: '',
+        error: '',
+        rules: ['required'],
+        label: 'Message',
+        isMultiline: true,
+        rows: 4,
+      },
     },
+    hasError: false,
+    isSent: false,
+    isLoading: false,
+    config,
   }),
   computed: {},
   methods: {
+    ...mapActions({
+      'POST': 'crud/POST',
+    }),
+    validateField,
+    validateForm,
+    clearError,
+    transformForm,
     contactUs() {
-      console.log(contact);
+      this.hasError = false;
+      const isValid = this.validateForm(this.form);
+      if (!isValid) return;
+
+      const formToSend = {
+        ...this.transformForm(this.form),
+        subject: `Exploit Contact Us: ${this.$route.params.event}`,
+      };
+
+      this.isLoading = true;
+      this.POST({ route: '/public/feedback', data: formToSend })
+        .then(() => { this.isSent = true; })
+        .catch(() => { this.hasError = true; })
+        .finally(() => { this.isLoading = false; });
     },
   },
 };
@@ -78,6 +147,10 @@ export default {
     width: 100%;
   }
 
+  &__error {
+    margin-bottom: 40px;
+  }
+
   @media (min-width: $media-xs) {
     &__heading {
       margin-bottom: 64px;
@@ -90,8 +163,10 @@ export default {
   }
 
   @media (min-width: $media-md) {
-    display: flex;
-    justify-content: space-between;
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
 
     &__heading {
       margin-bottom: 0;

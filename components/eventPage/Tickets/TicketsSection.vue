@@ -9,14 +9,17 @@
     </Heading>
     <p class="tickets__text">
       Access the conference by either
-      <router-link to="/" class="tickets__redeem">
+      <router-link
+        :to="`/${$route.params.event}/join`"
+        class="tickets__redeem"
+      >
         redeeming a sponsor code
       </router-link>
       or purchasing a ticket on the website.
     </p>
     <div class="tickets__wrapper">
       <Card
-        v-for="ticket in data"
+        v-for="ticket in tickets"
         :key="ticket.price"
         :ticket="ticket"
         class="tickets__ticket"
@@ -33,7 +36,7 @@ import Card from './TicketCard';
 export default {
   name: 'TicketsSection',
   props: {
-    data: {
+    tickets: {
       type: Array,
       default: () => [],
     },
@@ -67,11 +70,12 @@ export default {
   }
 
   &__redeem {
-    color: $white;
+        color: $accent-blue;
+    text-decoration: underline;
     transition: text-decoration 0.3s, opacity 0.3s;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &:active {

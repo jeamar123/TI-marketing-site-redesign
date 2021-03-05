@@ -35,8 +35,8 @@
                 {{ errorMsg }}
               </p>
               Please try again later or contact us at
-              <a href="mailto:info@arctic-con.com" class="form-layout__link">
-                info@arctic-con.com
+              <a :href="`mailto:${config.currentEmail}`" class="form-layout__link">
+                {{ config.currentEmail }}
               </a>
             </template>
           </Error>
@@ -49,6 +49,7 @@
             :type="fieldObj.rules.includes('password') ? 'password' : 'text'"
             :name="field"
             :label="fieldObj.label"
+            :disabled="isLoading"
             :error="fieldObj.error"
             @blur="validateField(field, form)"
             @input="clearError(field, form)"
@@ -56,7 +57,10 @@
           <div v-if="!doPasswordsMatch" class="new-pass__pass-err">
             Passwords do not match
           </div>
-          <Button class="form-layout__button">
+          <Button
+            :is-loading="isLoading"
+            class="form-layout__button"
+          >
             send a code
           </Button>
         </form>
@@ -69,6 +73,7 @@
 import { mapActions } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
@@ -91,9 +96,11 @@ export default {
     Error,
   },
   data: () => ({
+    config,
     doPasswordsMatch: true,
     isChangeSuccessfull: false,
     hasError: false,
+    isLoading: false,
     errorMsg: '',
     form: {
       code: {
@@ -143,17 +150,19 @@ export default {
         username: this.username,
       };
 
+      this.isLoading = true;
       this.clearErrors();
       this.changePassword(form).then(() => {
         this.isChangeSuccessfull = true;
       }).catch((err) => {
         this.hasError = true;
         this.errorMsg = err.message || '';
-      });
+      })
+      .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) this.hasError = true;
-      if (this.this.errorMsg) this.errorMsg = err.message || '';
+      if (this.errorMsg) this.errorMsg = err.message || '';
     },
   },
 };

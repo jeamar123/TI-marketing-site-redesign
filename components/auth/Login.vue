@@ -86,8 +86,8 @@
                 </template>
                 <template v-else-if="isUnknownErr || isEmailError">
                   Please try again or contact us at
-                  <a :href="'mailto:info@exploitcon.com'" class="error__link">
-                    info@exploitcon.com
+                  <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                    {{ config.currentEmail }}
                   </a>
                 </template>
               </template>
@@ -101,10 +101,14 @@
             :name="field"
             :label="fieldProps.label"
             :error="fieldProps.error"
+            :disabled="isLoading"
             @blur="validateField(field, form)"
             @input="clearError(field, form)"
           />
-          <Button class="form-layout__button">
+          <Button
+            :is-loading="isLoading"
+            class="form-layout__button"
+          >
             login
           </Button>
           <router-link to="/forgot-password" class="form-layout__link">Forgot a password?</router-link>
@@ -118,6 +122,7 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import GenericSection from '~/components/common/GenericSection';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
@@ -137,6 +142,7 @@ export default {
   },
   components: {},
   data: () => ({
+    config,
     form: {
       username: {
         value: '',
@@ -156,6 +162,7 @@ export default {
     isUnconfirmed: false,
     isUnknownErr: false,
     isEmailError: false,
+    isLoading: false,
   }),
   computed: {
     ...mapGetters({
@@ -188,7 +195,8 @@ export default {
       const isValid = this.validateForm(this.form);
 
       if (!isValid) return;
-
+      
+      this.isLoading = true;
       this.signIn(transformForm(this.form))
         .then(() => {
           this.clearErrors();
@@ -209,7 +217,8 @@ export default {
           }
 
           this.hasError = true;
-        });
+        })
+        .finally(() => { this.isLoading = false; });
     },
     clearErrors() {
       if (this.hasError) {

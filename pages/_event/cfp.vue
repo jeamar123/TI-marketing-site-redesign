@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Cfp />
+    <Cfp :event="event" />
   </div>
 </template>
 
@@ -12,6 +12,14 @@ export default {
   props: {},
   components: {
     Cfp,
+  },
+  async asyncData({ store, route }) {
+    const events = await store.dispatch('crud/GET', { route: '/admin/event/upcoming' })
+      .then (data => data);
+
+    return {
+      event: events.find(item => item.id === route.params.event),
+    }
   },
   data: () => ({}),
   computed: {},

@@ -10,17 +10,34 @@
     </template>
     <template #form>
       <form @submit.prevent="sendCfp">
+        <transition name="fade">
+          <Error v-if="hasError" :style="{'margin-bottom': '40px'}">
+            <template #header>
+              Looks like there was an error submitting your call for papers
+            </template>
+            <template #text>
+              Please try again or contact us directly at
+              <a :href="`mailto:${config.currentEmail}`" class="error__link">
+                {{ config.currentEmail }}
+              </a>
+            </template>
+          </Error>
+        </transition>
         <Input
           v-for="field in formFields"
           :key="field"
           v-model="form[field].value"
           :name="field"
           :label="form[field].label"
+          :disabled="isLoading"
           :error="form[field].error"
           @blur="validateField(field, form)"
           @input="clearError(field, form)"
         />
-        <Button class="form-layout__button">
+        <Button
+          :is-loading="isLoading"
+          class="form-layout__button"
+        >
           send
         </Button>
       </form>
@@ -31,21 +48,34 @@
 <script>
 import { transformForm } from '~/assets/js/utils';
 import { validateField, validateForm, clearError } from '~/assets/js/validation';
+import config from '~/static/config';
 import FormLayout from '~/components/common/FormLayout';
 import Heading from '~/components/common/Heading';
 import Input from '~/components/common/Input';
 import Button from '~/components/common/Button';
+import Error from '~/components/common/Error';
 
 export default {
   name: 'CfpSpeaker',
-  props: {},
+  props: {
+    hasError: {
+      type: Boolean,
+      default: false,
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     FormLayout,
     Heading,
     Input,
     Button,
+    Error,
   },
   data: () => ({
+    config,
     form: {
       email: {
         value: '',
@@ -77,7 +107,7 @@ export default {
       if(!isValid) return;
 
       const data = this.transformForm(this.form);
-      this.$emit('send-sfp', data);
+      this.$emit('send-cfp', data);
     },
   },
 };

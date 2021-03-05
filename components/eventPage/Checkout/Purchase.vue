@@ -2,7 +2,7 @@
   <GenericSection class="checkout">
     <div v-if="isQuantityReady" class="checkout__tickets">
         <TicketCard
-            v-for="ticket in ticketsTemp"
+            v-for="ticket in tickets"
             :key="ticket.type"
             v-model="ticketsQuantity[ticket.type.toLowerCase()].quantity"
             :ticket="ticket"
@@ -35,11 +35,15 @@
                     v-model="form[field].value"
                     :name="field"
                     :label="form[field].label"
+                    :disabled="isLoading"
                     :error="form[field].error"
                     @blur="validateField(field, form)"
                     @input="clearError(field, form)"
                 />
-                <Button class="form-layout__button">
+                <Button
+                    :is-loading="isLoading"
+                    class="form-layout__button"
+                >
                     {{buttonText}}
                 </Button>
             </form>
@@ -64,6 +68,10 @@ export default {
           type: Array,
           default: () => [],
         },
+        isLoading: {
+          type: Boolean,
+          default: false,
+        },
     },
     components: {
         GenericSection,
@@ -73,8 +81,6 @@ export default {
         TicketCard,
         FormLayout,
     },
-    // TODO: CHANGE ticketsTemp to tickets EVERYWHERE.
-    // ticketsTemp are here to show free tickets which are not in api currently
     data: () => ({
         form: {
             name: {
@@ -94,20 +100,6 @@ export default {
         isQuantityReady: false,
     }),
     computed: {
-        ticketsTemp() {
-            return [
-                {
-                    features: [
-                        'Access to live conference without ability to chat',
-                    ],
-                    title: 'Free',
-                    type: 'free',
-                    price: 0,
-                    max: 20,
-                },
-                ...this.tickets,
-            ];
-        },
         totalPrice() {
             return Object.values(this.ticketsQuantity).reduce((acc, cur) => {
                 return acc = acc + (cur.price * Number(cur.quantity));
@@ -135,7 +127,7 @@ export default {
         validateForm,
         clearError,
         getTicketsQuantity() {
-            return this.ticketsTemp.reduce((acc, cur) => {
+            return this.tickets.reduce((acc, cur) => {
                 return {
                     ...acc,
                     [cur.type]: {
