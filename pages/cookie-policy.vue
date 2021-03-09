@@ -1,7 +1,7 @@
 <template>
   <PolicyPage
     :data="data"
-    heading="Cookie policy"
+    heading="Cookie Policy"
   />
 </template>
 
