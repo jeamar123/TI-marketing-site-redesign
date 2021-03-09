@@ -11,8 +11,20 @@
           Also you can use social media for sign up to conference.
           <br/>
           By clicking Sign In, you are indicating that you have read and acknowledge the
-          <router-link to="/" class="form-layout__link">Terms of Service</router-link> and
-          <router-link to="/" class="form-layout__link">Privacy Notice</router-link>.
+          <router-link
+            to="/terms-of-service"
+            target="_blank"
+            class="form-layout__link"
+          >
+            Terms of Service
+          </router-link> and
+          <router-link
+            to="/privacy-policy"
+            target="_blank"
+            class="form-layout__link"
+          >
+            Privacy Notice
+          </router-link>.
         </p>
         <ul class="sign-in__social">
           <li class="sign-in__social-item">

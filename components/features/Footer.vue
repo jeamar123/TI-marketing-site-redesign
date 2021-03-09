@@ -72,15 +72,27 @@
         </a>
       </p>
       <p class="footer__policies">
-        <a href="#" class="footer__policy">
+        <router-link
+          to="/privacy-policy"
+          target="_blank"
+          class="footer__policy"
+        >
           Privacy Policy
-        </a>
-        <a href="#" class="footer__policy">
+        </router-link>
+        <router-link
+          to="/terms-of-service"
+          target="_blank"
+          class="footer__policy"
+        >
           Terms of Service
-        </a>
-        <a href="#" class="footer__policy">
+        </router-link>
+        <router-link
+          to="/cookie-policy"
+          target="_blank"
+          class="footer__policy"
+        >
           Cookie Policy
-        </a>
+        </router-link>
       </p>
     </div>
     <p class="footer__copyright footer__copyright--sm">
