@@ -1,17 +1,16 @@
 <template>
   <div>
-    <Header
+    <PolicyHeader
       :heading="heading"
       :heading-follower="headingFollower"
     />
-    <main>
-      policy text
-    </main>
+    <PolicyText :data="data" />
   </div>
 </template>
 
 <script>
-import Header from './PolicyHeader';
+import PolicyHeader from './PolicyHeader';
+import PolicyText from './PolicyText';
 
 export default {
   name: 'Policy',
@@ -30,7 +29,8 @@ export default {
     },
   },
   components: {
-    Header,
+    PolicyHeader,
+    PolicyText,
   },
   data: () => ({}),
   computed: {},
