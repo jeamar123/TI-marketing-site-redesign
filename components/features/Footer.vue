@@ -15,20 +15,22 @@
         </p>
         <nav class="footer__social">
           <a
-            href="#"
+            href="https://www.youtube.com/channel/UCLfO4wVxL7cFZ_CJTDaI-Qw"
+            target="_blank"
             class="footer__social-link"
-            aria-label="Link to Twitter"
+            aria-label="Link to Youtube"
           >
             <svg-icon
-              name="twitter"
-              width="30"
-              height="24"
+              name="youtube"
+              width="40"
+              height="22"
               fill="#fff"
-              class="icon icon--twitter"
+              class="icon icon--youtube"
             />
           </a>
           <a
-            href="#"
+            href="https://www.facebook.com/expl0itcon"
+            target="_blank"
             class="footer__social-link"
             aria-label="Link to Facebook"
           >
@@ -41,7 +43,8 @@
             />
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/company/exploitcon"
+            target="_blank"
             class="footer__social-link"
             aria-label="Link to LinkedIn"
           >
@@ -312,9 +315,9 @@ export default {
     }
 
     .icon {
-      &--twitter {
-        width: 42px;
-        height: 34px;
+      &--youtube {
+        width: 56px;
+        height: 38px;
       }
 
       &--facebook {
