@@ -6,7 +6,7 @@
       </Success>
       <div key="volunteering-form" class="volunteering__wrapper" v-else>
         <Heading
-          color="white" 
+          color="white"
           class="volunteering__heading"
         >
           Interested in
@@ -14,7 +14,7 @@
           volunteering?
         </Heading>
         <form
-          @submit.prevent="applyVolunteering" 
+          @submit.prevent="applyVolunteering"
           class="volunteering__form"
         >
           <transition name="fade">
@@ -192,4 +192,5 @@ export default {
     }
   }
 }
+
 </style>
