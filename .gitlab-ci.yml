@@ -27,7 +27,7 @@ deploy dev:
     - dev
   script:
     - pip install awscli
-    - aws s3 sync ./dist s3://hm-conf-web-dev/articcon/marketing-redesign
+    - aws s3 sync ./dist s3://hm-conf-web-dev/marketing-redesign
 
 #QA
 
@@ -54,7 +54,7 @@ deploy qa:
     - qa
   script:
     - pip install awscli
-    - aws s3 sync ./dist s3://hm-conf-web-test/articcon/marketing-redesign
+    - aws s3 sync ./dist s3://hm-conf-web-test/marketing-redesign
 
 #production
 
@@ -81,4 +81,4 @@ deploy prod:
     - prod
   script:
     - pip install awscli
-    - aws s3 sync ./dist s3://hm-conf-web-prd/articcon/marketing-redesign
+    - aws s3 sync ./dist s3://hm-conf-web-prd/marketing-redesign
