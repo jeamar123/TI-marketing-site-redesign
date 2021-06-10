@@ -1,0 +1,84 @@
+stages:
+  - build
+  - deploy
+
+#Dev
+
+build dev:
+  image: node:12
+  stage: build
+  only:
+    - dev
+  script:
+    - npm install -g @vue/cli@latest
+    - npm install
+    - npm run lint
+    - npm run build
+  artifacts:
+    paths:
+      # Build folder
+      - dist/
+    expire_in: 1 hour
+
+deploy dev:
+  image: python:latest
+  stage: deploy
+  only:
+    - dev
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://hm-conf-web-dev/articcon/marketing-redesign
+
+#QA
+
+build qa:
+  image: node:12
+  stage: build
+  only:
+    - qa
+  script:
+    - npm install -g @vue/cli@latest
+    - npm install
+    - npm run lint
+    - npm run build
+  artifacts:
+    paths:
+      # Build folder
+      - dist/
+    expire_in: 1 hour
+
+deploy qa:
+  image: python:latest
+  stage: deploy
+  only:
+    - qa
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://hm-conf-web-test/articcon/marketing-redesign
+
+#production
+
+build prod:
+  image: node:12
+  stage: build
+  only:
+    - prod
+  script:
+    - npm install -g @vue/cli@latest
+    - npm install
+    - npm run lint
+    - npm run build
+  artifacts:
+    paths:
+      # Build folder
+      - dist/
+    expire_in: 1 hour
+
+deploy prod:
+  image: python:latest
+  stage: deploy
+  only:
+    - prod
+  script:
+    - pip install awscli
+    - aws s3 sync ./dist s3://hm-conf-web-prd/articcon/marketing-redesign
